@@ -1,0 +1,44 @@
+# Project-local MCP integrations. Codex loads this file only for trusted projects.
+# CoinGecko exposes its API SDK executor; DexPaprika exposes market-data reads.
+# CoinPaprika MCP stays disabled until its live tool schema is reviewed and allowlisted.
+# No API keys or paid/key-required tools are configured.
+
+# Native Codex subagent cap (excluding the coordinator). Keep research fan-out small.
+[agents]
+max_concurrent_threads_per_session = 2
+
+[mcp_servers.coingecko]
+url = "https://mcp.api.coingecko.com/mcp"
+enabled = true
+enabled_tools = ["execute"]
+startup_timeout_sec = 20
+tool_timeout_sec = 30
+
+[mcp_servers.dexpaprika]
+url = "https://mcp.dexpaprika.com/streamable-http"
+enabled = true
+enabled_tools = [
+  "getNetworks",
+  "getNetworkDexes",
+  "getNetworkPools",
+  "getDexPools",
+  "getNetworkPoolsFilter",
+  "getPoolDetails",
+  "getPoolOHLCV",
+  "getTokenDetails",
+  "getTokenPools",
+  "getTopTokens",
+  "filterNetworkTokens",
+  "getTokenMultiPrices",
+  "search",
+  "getStats",
+]
+startup_timeout_sec = 20
+tool_timeout_sec = 30
+
+# Read-only free-market cross-check; live availability and tool scope must be verified.
+[mcp_servers.coinpaprika]
+url = "https://mcp.coinpaprika.com/streamable-http"
+enabled = false
+startup_timeout_sec = 20
+tool_timeout_sec = 30

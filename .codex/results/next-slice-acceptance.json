@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-12T01:19:04.217730Z",
+  "mode": "MOCKED_OFFLINE",
+  "profile": "safe",
+  "workspace": "examples/synthetic-workspace",
+  "skill_recommendation": {
+    "status": "RECOMMEND",
+    "skill": "crypto-daily",
+    "route_id": "small-cap-newsletter",
+    "reason": "Orchestrate this project's complete evidence-led small-cap newsletter workflow.",
+    "manifest": ".agents/skills/crypto-daily/SKILL.md"
+  },
+  "command": [
+    "python-mock",
+    "tests/fixtures/mock_codex.py",
+    "--exit-code",
+    "0",
+    "--delay",
+    "0",
+    "exec",
+    "--json",
+    "--ephemeral",
+    "--sandbox",
+    "read-only",
+    "--config",
+    "approval_policy=\"on-request\"",
+    "--cd",
+    "examples/synthetic-workspace",
+    "--skip-git-repo-check",
+    "<TASK_PROMPT_REDACTED>"
+  ],
+  "process": {
+    "exit_code": 0,
+    "timed_out": false,
+    "stdout_bytes": 75,
+    "stderr_bytes": 0,
+    "completion_event": true,
+    "duration_seconds": 0.108
+  },
+  "verification": {
+    "status": "PASS",
+    "checks": {
+      "subprocess_exit_zero": true,
+      "not_timed_out": true,
+      "codex_completion_event": true
+    }
+  },
+  "newsletter": {
+    "status": "PASS",
+    "edition": "offline no-pick fixture",
+    "section_count": 13,
+    "artifact_path": ".codex/results/next-slice-acceptance.md"
+  },
+  "acceptance": {
+    "status": "PASS",
+    "checks": {
+      "doctor_has_no_failures": true,
+      "nested_policy_discovered": true,
+      "source_policy_default_deny": true,
+      "route_recommendation_recorded": true,
+      "mocked_process_completed": true,
+      "artifact_read_back": true,
+      "newsletter_packet_valid": true,
+      "newsletter_rendered_and_read_back": true,
+      "thirteen_sections_present": true
+    }
+  }
+}

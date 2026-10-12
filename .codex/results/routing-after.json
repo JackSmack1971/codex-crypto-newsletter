@@ -1,0 +1,356 @@
+{
+  "status": "PASS",
+  "evaluated_at_utc": "2026-10-12T00:12:19.700056+00:00",
+  "command": "python tools/controlplane.py eval-routing",
+  "dataset": "examples/routing-cases.json",
+  "case_count": 44,
+  "kind_counts": {
+    "ambiguous": 8,
+    "explicit": 13,
+    "negative": 9,
+    "positive": 14
+  },
+  "cases": [
+    {
+      "id": "implicit-crypto-universe-discovery",
+      "kind": "positive",
+      "expected": "crypto-universe-discovery",
+      "predicted": "crypto-universe-discovery",
+      "correct": true
+    },
+    {
+      "id": "implicit-market-data-validation",
+      "kind": "positive",
+      "expected": "market-data-validation",
+      "predicted": "market-data-validation",
+      "correct": true
+    },
+    {
+      "id": "implicit-small-cap-screening",
+      "kind": "positive",
+      "expected": "small-cap-screening",
+      "predicted": "small-cap-screening",
+      "correct": true
+    },
+    {
+      "id": "implicit-technical-analysis",
+      "kind": "positive",
+      "expected": "technical-analysis",
+      "predicted": "technical-analysis",
+      "correct": true
+    },
+    {
+      "id": "implicit-liquidity-analysis",
+      "kind": "positive",
+      "expected": "liquidity-analysis",
+      "predicted": "liquidity-analysis",
+      "correct": true
+    },
+    {
+      "id": "implicit-onchain-intelligence",
+      "kind": "positive",
+      "expected": "onchain-intelligence",
+      "predicted": "onchain-intelligence",
+      "correct": true
+    },
+    {
+      "id": "implicit-tokenomics-diligence",
+      "kind": "positive",
+      "expected": "tokenomics-diligence",
+      "predicted": "tokenomics-diligence",
+      "correct": true
+    },
+    {
+      "id": "implicit-catalyst-research",
+      "kind": "positive",
+      "expected": "catalyst-research",
+      "predicted": "catalyst-research",
+      "correct": true
+    },
+    {
+      "id": "implicit-investment-falsification",
+      "kind": "positive",
+      "expected": "investment-falsification",
+      "predicted": "investment-falsification",
+      "correct": true
+    },
+    {
+      "id": "implicit-daily-pick-selection",
+      "kind": "positive",
+      "expected": "daily-pick-selection",
+      "predicted": "daily-pick-selection",
+      "correct": true
+    },
+    {
+      "id": "implicit-weekly-watchlist",
+      "kind": "positive",
+      "expected": "weekly-watchlist",
+      "predicted": "weekly-watchlist",
+      "correct": true
+    },
+    {
+      "id": "implicit-newsletter-production",
+      "kind": "positive",
+      "expected": "newsletter-production",
+      "predicted": "newsletter-production",
+      "correct": true
+    },
+    {
+      "id": "explicit-crypto-universe-discovery",
+      "kind": "explicit",
+      "expected": "crypto-universe-discovery",
+      "predicted": "crypto-universe-discovery",
+      "correct": true
+    },
+    {
+      "id": "explicit-market-data-validation",
+      "kind": "explicit",
+      "expected": "market-data-validation",
+      "predicted": "market-data-validation",
+      "correct": true
+    },
+    {
+      "id": "explicit-small-cap-screening",
+      "kind": "explicit",
+      "expected": "small-cap-screening",
+      "predicted": "small-cap-screening",
+      "correct": true
+    },
+    {
+      "id": "explicit-technical-analysis",
+      "kind": "explicit",
+      "expected": "technical-analysis",
+      "predicted": "technical-analysis",
+      "correct": true
+    },
+    {
+      "id": "explicit-liquidity-analysis",
+      "kind": "explicit",
+      "expected": "liquidity-analysis",
+      "predicted": "liquidity-analysis",
+      "correct": true
+    },
+    {
+      "id": "explicit-onchain-intelligence",
+      "kind": "explicit",
+      "expected": "onchain-intelligence",
+      "predicted": "onchain-intelligence",
+      "correct": true
+    },
+    {
+      "id": "explicit-tokenomics-diligence",
+      "kind": "explicit",
+      "expected": "tokenomics-diligence",
+      "predicted": "tokenomics-diligence",
+      "correct": true
+    },
+    {
+      "id": "explicit-catalyst-research",
+      "kind": "explicit",
+      "expected": "catalyst-research",
+      "predicted": "catalyst-research",
+      "correct": true
+    },
+    {
+      "id": "explicit-investment-falsification",
+      "kind": "explicit",
+      "expected": "investment-falsification",
+      "predicted": "investment-falsification",
+      "correct": true
+    },
+    {
+      "id": "explicit-daily-pick-selection",
+      "kind": "explicit",
+      "expected": "daily-pick-selection",
+      "predicted": "daily-pick-selection",
+      "correct": true
+    },
+    {
+      "id": "explicit-weekly-watchlist",
+      "kind": "explicit",
+      "expected": "weekly-watchlist",
+      "predicted": "weekly-watchlist",
+      "correct": true
+    },
+    {
+      "id": "explicit-newsletter-production",
+      "kind": "explicit",
+      "expected": "newsletter-production",
+      "predicted": "newsletter-production",
+      "correct": true
+    },
+    {
+      "id": "negative-01",
+      "kind": "negative",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "negative-02",
+      "kind": "negative",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "negative-03",
+      "kind": "negative",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "negative-04",
+      "kind": "negative",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "negative-05",
+      "kind": "negative",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "negative-06",
+      "kind": "negative",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "negative-07",
+      "kind": "negative",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "negative-08",
+      "kind": "negative",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "ambiguous-01",
+      "kind": "ambiguous",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "ambiguous-02",
+      "kind": "ambiguous",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "ambiguous-03",
+      "kind": "ambiguous",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "ambiguous-04",
+      "kind": "ambiguous",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "ambiguous-05",
+      "kind": "ambiguous",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "ambiguous-06",
+      "kind": "ambiguous",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "ambiguous-07",
+      "kind": "ambiguous",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "ambiguous-08",
+      "kind": "ambiguous",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    },
+    {
+      "id": "legacy-daily-entry",
+      "kind": "positive",
+      "expected": "crypto-daily",
+      "predicted": "crypto-daily",
+      "correct": true
+    },
+    {
+      "id": "legacy-implementation-entry",
+      "kind": "positive",
+      "expected": "implementation-slice",
+      "predicted": "implementation-slice",
+      "correct": true
+    },
+    {
+      "id": "explicit-legacy-daily",
+      "kind": "explicit",
+      "expected": "crypto-daily",
+      "predicted": "crypto-daily",
+      "correct": true
+    },
+    {
+      "id": "explicit-unknown-skill",
+      "kind": "negative",
+      "expected": null,
+      "predicted": null,
+      "correct": true
+    }
+  ],
+  "metrics": {
+    "precision": {
+      "numerator": 27,
+      "denominator": 27,
+      "value": 1.0
+    },
+    "recall": {
+      "numerator": 27,
+      "denominator": 27,
+      "value": 1.0
+    },
+    "inappropriate_invocation_rate": {
+      "numerator": 0,
+      "denominator": 27,
+      "value": 0.0
+    },
+    "missed_invocation_rate": {
+      "numerator": 0,
+      "denominator": 27,
+      "value": 0.0
+    },
+    "false_positive_rate": {
+      "numerator": 0,
+      "denominator": 9,
+      "value": 0.0
+    },
+    "abstention_rate": {
+      "numerator": 17,
+      "denominator": 44,
+      "value": 0.38636363636363635
+    }
+  },
+  "comparison_note": "Baseline is the archived four-case corpus in routing-before.json. Dataset and workflow coverage differ; no routing improvement claim is made."
+}

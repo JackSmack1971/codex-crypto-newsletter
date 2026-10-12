@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "status": "TESTED_OFFLINE",
+  "mode": "offline-single",
+  "created_utc": "2026-10-12T00:59:57Z",
+  "workload_ids": [
+    "normal-day",
+    "quiet-market",
+    "speculative-rally",
+    "manipulation",
+    "provider-outage",
+    "conflicting-data",
+    "missing-token-supply",
+    "no-pick"
+  ],
+  "workload_count": 8,
+  "start_state_sha256": "936fac692b9f9c5e20af775160d207b6614336900b248b5e1de4917f8dcf4581",
+  "routing_case_count": 44,
+  "multi_agent_comparison": {
+    "status": "UNVERIFIED",
+    "reason": "Requires paired live single-agent and multi-agent runs with the same workload IDs and start-state hash; no live run was authorized or performed."
+  },
+  "metrics": {
+    "skill_routing_precision": {
+      "numerator": 27,
+      "denominator": 27,
+      "value": 1.0
+    },
+    "skill_routing_recall": {
+      "numerator": 27,
+      "denominator": 27,
+      "value": 1.0
+    },
+    "research_evidence_coverage": {
+      "value": null,
+      "numerator": null,
+      "denominator": null,
+      "status": "UNMEASURED: requires coordinator-observed live run telemetry; fixture catalogue specifies conditions but contains no research artifacts"
+    },
+    "source_freshness": {
+      "value": null,
+      "status": "UNMEASURED: requires coordinator-observed live run telemetry; no acquired source timestamps in offline workload set"
+    },
+    "token_identity_accuracy": {
+      "value": null,
+      "status": "UNMEASURED: requires coordinator-observed live run telemetry; identity truth set is not present"
+    },
+    "calculation_correctness": {
+      "value": 1.0,
+      "numerator": 3,
+      "denominator": 3
+    },
+    "candidate_screening_reproducibility": {
+      "value": true,
+      "runs": 2,
+      "workloads": [
+        "no-pick"
+      ]
+    },
+    "independent_reviewer_defect_detection": {
+      "value": null,
+      "status": "UNMEASURED: requires coordinator-observed live run telemetry; adversarial fixtures are unit-test inputs, not a labeled defect corpus"
+    },
+    "unsupported_claim_frequency": {
+      "value": null,
+      "status": "UNMEASURED: requires coordinator-observed live run telemetry; no generated research claims in offline fixture set"
+    },
+    "newsletter_completeness": {
+      "value": true,
+      "errors": [],
+      "section_count": 13
+    },
+    "daily_runtime_seconds": {
+      "value": 0.015671,
+      "scope": "offline evaluation harness only"
+    },
+    "resource_consumption": {
+      "value": null,
+      "status": "UNMEASURED: requires coordinator-observed live run telemetry; process-level CPU/memory telemetry not collected"
+    },
+    "cost_per_completed_edition_usd": {
+      "value": null,
+      "status": "UNMEASURED: requires coordinator-observed live run telemetry; no model/provider billing telemetry and no edition generation"
+    },
+    "historical_pick_watchlist_outcomes": {
+      "value": null,
+      "status": "UNMEASURED: requires coordinator-observed live run telemetry; no accountability ledger supplied"
+    },
+    "live_agent_invocations": {
+      "value": 0,
+      "meaning": "No model or delegated agent was launched by this offline evaluation."
+    },
+    "live_token_usage": {
+      "value": null,
+      "status": "NOT_APPLICABLE: no live model invocation"
+    }
+  },
+  "paired_comparison": {
+    "same_fixture_dataset": true,
+    "status": "PASS",
+    "interpretation": "No optimization change was applied in this slice; paired values check repeatability only.",
+    "metrics": {
+      "skill_routing_precision": {
+        "baseline": 1.0,
+        "current": 1.0,
+        "delta": 0.0,
+        "regression": false
+      },
+      "skill_routing_recall": {
+        "baseline": 1.0,
+        "current": 1.0,
+        "delta": 0.0,
+        "regression": false
+      },
+      "calculation_correctness": {
+        "baseline": 1.0,
+        "current": 1.0,
+        "delta": 0.0,
+        "regression": false
+      },
+      "candidate_screening_reproducibility": {
+        "baseline": true,
+        "current": true,
+        "delta": 0,
+        "regression": false
+      },
+      "newsletter_completeness": {
+        "baseline": true,
+        "current": true,
+        "delta": 0,
+        "regression": false
+      }
+    },
+    "runtime_delta_seconds": -0.001067
+  }
+}

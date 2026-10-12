@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-12T01:19:07.536893Z",
+  "mode": "MOCKED_OFFLINE",
+  "profile": "safe",
+  "workspace": "examples/synthetic-workspace",
+  "skill_recommendation": {
+    "status": "RECOMMEND",
+    "skill": "crypto-daily",
+    "route_id": "small-cap-newsletter",
+    "reason": "Orchestrate this project's complete evidence-led small-cap newsletter workflow.",
+    "manifest": ".agents/skills/crypto-daily/SKILL.md"
+  },
+  "command": [
+    "python-mock",
+    "tests/fixtures/mock_codex.py",
+    "--exit-code",
+    "0",
+    "--delay",
+    "0",
+    "exec",
+    "--json",
+    "--ephemeral",
+    "--sandbox",
+    "read-only",
+    "--config",
+    "approval_policy=\"on-request\"",
+    "--cd",
+    "examples/synthetic-workspace",
+    "--skip-git-repo-check",
+    "<TASK_PROMPT_REDACTED>"
+  ],
+  "process": {
+    "exit_code": 0,
+    "timed_out": false,
+    "stdout_bytes": 75,
+    "stderr_bytes": 0,
+    "completion_event": true,
+    "duration_seconds": 0.067
+  },
+  "verification": {
+    "status": "PASS",
+    "checks": {
+      "subprocess_exit_zero": true,
+      "not_timed_out": true,
+      "codex_completion_event": true
+    }
+  }
+}

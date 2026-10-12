@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "default_decision": "DENY",
+  "sources": [
+    {
+      "id": "coingecko-market-data",
+      "enabled": true,
+      "domains": [
+        "mcp.api.coingecko.com"
+      ],
+      "operations": [
+        "read"
+      ],
+      "max_cost_per_operation_usd": 0
+    },
+    {
+      "id": "dexpaprika-dex-data",
+      "enabled": true,
+      "domains": [
+        "mcp.dexpaprika.com"
+      ],
+      "operations": [
+        "read"
+      ],
+      "max_cost_per_operation_usd": 0
+    },
+    {
+      "id": "coinpaprika-mcp",
+      "enabled": false,
+      "domains": [
+        "mcp.coinpaprika.com"
+      ],
+      "operations": [
+        "read"
+      ],
+      "max_cost_per_operation_usd": 0
+    },
+    {
+      "id": "coinpaprika-public-api",
+      "enabled": true,
+      "domains": [
+        "api.coinpaprika.com"
+      ],
+      "operations": [
+        "read"
+      ],
+      "max_cost_per_operation_usd": 0
+    },
+    {
+      "id": "dexscreener-market-data",
+      "enabled": true,
+      "domains": [
+        "api.dexscreener.com"
+      ],
+      "operations": [
+        "read"
+      ],
+      "max_cost_per_operation_usd": 0
+    },
+    {
+      "id": "defillama-market-data",
+      "enabled": false,
+      "domains": ["api.llama.fi"],
+      "operations": [],
+      "max_cost_per_operation_usd": 0
+    },
+    {
+      "id": "geckoterminal-market-data",
+      "enabled": false,
+      "domains": ["api.geckoterminal.com"],
+      "operations": [],
+      "max_cost_per_operation_usd": 0
+    },
+    {
+      "id": "ccxt-public-market-data",
+      "enabled": false,
+      "domains": [],
+      "operations": [],
+      "max_cost_per_operation_usd": 0
+    },
+    {
+      "id": "hyperliquid-info",
+      "enabled": false,
+      "domains": ["api.hyperliquid.xyz"],
+      "operations": [],
+      "max_cost_per_operation_usd": 0
+    }
+  ],
+  "paid_operations": false,
+  "external_publication": false
+}

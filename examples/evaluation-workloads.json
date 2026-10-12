@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "description": "Fixed offline workload catalogue for repeatable research-control-plane evaluation. Scenarios are test conditions, not market observations.",
+  "workloads": [
+    {"id":"normal-day","conditions":["normal"],"expected_decision":"PICK_OR_NO_PICK_BY_EVIDENCE","expected_failure_modes":[]},
+    {"id":"quiet-market","conditions":["quiet_market"],"expected_decision":"NO_PICK_ALLOWED","expected_failure_modes":[]},
+    {"id":"speculative-rally","conditions":["speculative_rally"],"expected_decision":"GATES_OVERRIDE_SCORE","expected_failure_modes":["momentum_does_not_override_gates"]},
+    {"id":"manipulation","conditions":["conflicting_data","manipulation"],"expected_decision":"NO_PICK_ALLOWED","expected_failure_modes":["identity_or_source_conflict_blocks_pick"]},
+    {"id":"provider-outage","conditions":["provider_outage"],"expected_decision":"DEGRADED_OR_NO_PICK","expected_failure_modes":["unknown_is_not_pass"]},
+    {"id":"conflicting-data","conditions":["conflicting_data"],"expected_decision":"NO_PICK_ALLOWED","expected_failure_modes":["conflicts_preserved"]},
+    {"id":"missing-token-supply","conditions":["missing_supply"],"expected_decision":"NO_PICK_ALLOWED","expected_failure_modes":["unknown_supply_blocks_pick"]},
+    {"id":"no-pick","conditions":["no_eligible_candidate"],"expected_decision":"NO_PICK","expected_failure_modes":["no_forced_pick"]}
+  ],
+  "evaluation_limits": {
+    "runtime_invocations": "Only coordinator-observed process or thread events count; offline fixture evaluation reports zero live invocations.",
+    "token_usage": "Measured only from actual runtime usage telemetry; never estimated from text length.",
+    "single_vs_multi": "Compare only paired runs over identical workload IDs and start-state hashes. Synthetic/simulated roles do not count as native delegation.",
+    "historical_outcomes": "Use the append-only accountability ledger; absence of a ledger means unavailable, not zero performance."
+  }
+}

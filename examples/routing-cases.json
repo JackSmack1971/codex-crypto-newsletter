@@ -1,0 +1,266 @@
+[
+  {
+    "id": "implicit-crypto-universe-discovery",
+    "kind": "positive",
+    "task": "Build universe coverage and identity mapping for this token set.",
+    "expected_skill": "crypto-universe-discovery"
+  },
+  {
+    "id": "implicit-market-data-validation",
+    "kind": "positive",
+    "task": "Validate market data freshness and consistency across these price feeds.",
+    "expected_skill": "market-data-validation"
+  },
+  {
+    "id": "implicit-small-cap-screening",
+    "kind": "positive",
+    "task": "Apply the filters and rank the small cap candidate funnel.",
+    "expected_skill": "small-cap-screening"
+  },
+  {
+    "id": "implicit-technical-analysis",
+    "kind": "positive",
+    "task": "Provide technical analysis of token ABC.",
+    "expected_skill": "technical-analysis"
+  },
+  {
+    "id": "implicit-liquidity-analysis",
+    "kind": "positive",
+    "task": "Assess market depth and slippage for token ABC on its venues.",
+    "expected_skill": "liquidity-analysis"
+  },
+  {
+    "id": "implicit-onchain-intelligence",
+    "kind": "positive",
+    "task": "Run on-chain analysis for contract ABC.",
+    "expected_skill": "onchain-intelligence"
+  },
+  {
+    "id": "implicit-tokenomics-diligence",
+    "kind": "positive",
+    "task": "Review tokenomics, supply dilution, unlocks, and value capture.",
+    "expected_skill": "tokenomics-diligence"
+  },
+  {
+    "id": "implicit-catalyst-research",
+    "kind": "positive",
+    "task": "Verify the catalyst chronology, date, and status for this protocol event.",
+    "expected_skill": "catalyst-research"
+  },
+  {
+    "id": "implicit-investment-falsification",
+    "kind": "positive",
+    "task": "Challenge the token thesis and present the strongest contrary case.",
+    "expected_skill": "investment-falsification"
+  },
+  {
+    "id": "implicit-daily-pick-selection",
+    "kind": "positive",
+    "task": "Evaluate a daily research pick against all eligibility gates.",
+    "expected_skill": "daily-pick-selection"
+  },
+  {
+    "id": "implicit-weekly-watchlist",
+    "kind": "positive",
+    "task": "Prepare the weekly watchlist with monitoring milestones.",
+    "expected_skill": "weekly-watchlist"
+  },
+  {
+    "id": "implicit-newsletter-production",
+    "kind": "positive",
+    "task": "Write the daily crypto edition from these validated research records.",
+    "expected_skill": "newsletter-production"
+  },
+  {
+    "id": "explicit-crypto-universe-discovery",
+    "kind": "explicit",
+    "task": "Use skill: crypto-universe-discovery for this task.",
+    "expected_skill": "crypto-universe-discovery"
+  },
+  {
+    "id": "explicit-market-data-validation",
+    "kind": "explicit",
+    "task": "Use skill: market-data-validation for this task.",
+    "expected_skill": "market-data-validation"
+  },
+  {
+    "id": "explicit-small-cap-screening",
+    "kind": "explicit",
+    "task": "Use skill: small-cap-screening for this task.",
+    "expected_skill": "small-cap-screening"
+  },
+  {
+    "id": "explicit-technical-analysis",
+    "kind": "explicit",
+    "task": "Use skill: technical-analysis for this task.",
+    "expected_skill": "technical-analysis"
+  },
+  {
+    "id": "explicit-liquidity-analysis",
+    "kind": "explicit",
+    "task": "Use skill: liquidity-analysis for this task.",
+    "expected_skill": "liquidity-analysis"
+  },
+  {
+    "id": "explicit-onchain-intelligence",
+    "kind": "explicit",
+    "task": "Use skill: onchain-intelligence for this task.",
+    "expected_skill": "onchain-intelligence"
+  },
+  {
+    "id": "explicit-tokenomics-diligence",
+    "kind": "explicit",
+    "task": "Use skill: tokenomics-diligence for this task.",
+    "expected_skill": "tokenomics-diligence"
+  },
+  {
+    "id": "explicit-catalyst-research",
+    "kind": "explicit",
+    "task": "Use skill: catalyst-research for this task.",
+    "expected_skill": "catalyst-research"
+  },
+  {
+    "id": "explicit-investment-falsification",
+    "kind": "explicit",
+    "task": "Use skill: investment-falsification for this task.",
+    "expected_skill": "investment-falsification"
+  },
+  {
+    "id": "explicit-daily-pick-selection",
+    "kind": "explicit",
+    "task": "Use skill: daily-pick-selection for this task.",
+    "expected_skill": "daily-pick-selection"
+  },
+  {
+    "id": "explicit-weekly-watchlist",
+    "kind": "explicit",
+    "task": "Use skill: weekly-watchlist for this task.",
+    "expected_skill": "weekly-watchlist"
+  },
+  {
+    "id": "explicit-newsletter-production",
+    "kind": "explicit",
+    "task": "Use skill: newsletter-production for this task.",
+    "expected_skill": "newsletter-production"
+  },
+  {
+    "id": "negative-01",
+    "kind": "negative",
+    "task": "What is the weather forecast for Boston?",
+    "expected_skill": null
+  },
+  {
+    "id": "negative-02",
+    "kind": "negative",
+    "task": "Explain how compound interest works.",
+    "expected_skill": null
+  },
+  {
+    "id": "negative-03",
+    "kind": "negative",
+    "task": "Help me plan a vegetarian dinner.",
+    "expected_skill": null
+  },
+  {
+    "id": "negative-04",
+    "kind": "negative",
+    "task": "Summarize the history of the Roman Republic.",
+    "expected_skill": null
+  },
+  {
+    "id": "negative-05",
+    "kind": "negative",
+    "task": "Convert this CSV to JSON.",
+    "expected_skill": null
+  },
+  {
+    "id": "negative-06",
+    "kind": "negative",
+    "task": "What is the current time in Tokyo?",
+    "expected_skill": null
+  },
+  {
+    "id": "negative-07",
+    "kind": "negative",
+    "task": "Write a birthday message for my colleague.",
+    "expected_skill": null
+  },
+  {
+    "id": "negative-08",
+    "kind": "negative",
+    "task": "How do I prune a rose bush?",
+    "expected_skill": null
+  },
+  {
+    "id": "ambiguous-01",
+    "kind": "ambiguous",
+    "task": "Prepare a crypto newsletter and implement code for its research control plane.",
+    "expected_skill": null
+  },
+  {
+    "id": "ambiguous-02",
+    "kind": "ambiguous",
+    "task": "Create a universe and validate market data feeds for it.",
+    "expected_skill": null
+  },
+  {
+    "id": "ambiguous-03",
+    "kind": "ambiguous",
+    "task": "Screen these small caps and do technical analysis on the finalists.",
+    "expected_skill": null
+  },
+  {
+    "id": "ambiguous-04",
+    "kind": "ambiguous",
+    "task": "Analyze liquidity and on-chain activity for this token.",
+    "expected_skill": null
+  },
+  {
+    "id": "ambiguous-05",
+    "kind": "ambiguous",
+    "task": "Review tokenomics and verify its catalyst chronology.",
+    "expected_skill": null
+  },
+  {
+    "id": "ambiguous-06",
+    "kind": "ambiguous",
+    "task": "Falsify this thesis and decide today’s pick.",
+    "expected_skill": null
+  },
+  {
+    "id": "ambiguous-07",
+    "kind": "ambiguous",
+    "task": "Refresh the weekly watchlist and write the daily newsletter.",
+    "expected_skill": null
+  },
+  {
+    "id": "ambiguous-08",
+    "kind": "ambiguous",
+    "task": "Perform a technical analysis and assess venue liquidity.",
+    "expected_skill": null
+  },
+  {
+    "id": "legacy-daily-entry",
+    "kind": "positive",
+    "task": "Prepare the Small-Cap Crypto Daily newsletter research packet",
+    "expected_skill": "crypto-daily"
+  },
+  {
+    "id": "legacy-implementation-entry",
+    "kind": "positive",
+    "task": "Repair Codex Control Plane: establish a testable baseline",
+    "expected_skill": "implementation-slice"
+  },
+  {
+    "id": "explicit-legacy-daily",
+    "kind": "explicit",
+    "task": "Use skill: crypto-daily to prepare the edition.",
+    "expected_skill": "crypto-daily"
+  },
+  {
+    "id": "explicit-unknown-skill",
+    "kind": "negative",
+    "task": "Use skill: missing-research-skill for this task.",
+    "expected_skill": null
+  }
+]

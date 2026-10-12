@@ -1,0 +1,33 @@
+{
+  "edition": {
+    "date": "2026-10-11",
+    "cutoff_utc": "2026-10-11T16:00:00Z",
+    "status": "draft",
+    "regime": "Fixture only; no current market data was researched."
+  },
+  "sources": [
+    {
+      "id": "fixture-method",
+      "label": "Example source record (fixture)",
+      "url": "https://example.com/research-method",
+      "accessed_utc": "2026-10-11T16:00:00Z"
+    }
+  ],
+  "sections": {
+    "small-cap-crypto-daily": {"content": "Fixture edition. No current market research is represented.", "source_ids": []},
+    "market-in-90-seconds": {"content": "Unavailable in this offline fixture.", "source_ids": []},
+    "market-dashboard": {"content": "Unavailable in this offline fixture.", "source_ids": []},
+    "whats-moving": {"content": "No movers assessed.", "source_ids": []},
+    "under-the-radar": {"content": "No events assessed.", "source_ids": []},
+    "todays-deep-dive": {"content": "No candidate research was performed.", "source_ids": []},
+    "small-cap-leaderboard": {"content": "No assets were screened.", "source_ids": []},
+    "pick-of-the-day": {"content": "NO PICK — research evidence and independent review are unavailable.", "source_ids": []},
+    "risk-desk": {"content": "No risk analysis performed.", "source_ids": []},
+    "previous-pick-accountability": {"content": "NOT REPORTABLE: ORIGINAL RECORD UNAVAILABLE.", "source_ids": []},
+    "watchlist": {"content": "No watchlist assessed.", "source_ids": []},
+    "bottom-line": {"content": "This fixture demonstrates formatting only.", "source_ids": []},
+    "sources-method-and-research-appendix": {"content": "Offline fixture; no source claims are made.", "source_ids": ["fixture-method"]}
+  },
+  "pick": {"status": "NO_PICK"},
+  "editorial_approval": false
+}

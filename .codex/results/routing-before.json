@@ -1,0 +1,27 @@
+{
+  "dataset": "examples/routing-cases.json before skill split",
+  "case_count": 4,
+  "metrics": {
+    "precision": {
+      "numerator": 2,
+      "denominator": 2,
+      "value": 1.0
+    },
+    "recall": {
+      "numerator": 2,
+      "denominator": 2,
+      "value": 1.0
+    },
+    "false_positive_rate": {
+      "numerator": 0,
+      "denominator": 1,
+      "value": 0.0
+    },
+    "abstention_rate": {
+      "numerator": 2,
+      "denominator": 4,
+      "value": 0.5
+    }
+  },
+  "limitations": "Four-case baseline covers only newsletter, implementation, one unrelated negative, and one competing route. It is not comparable to the expanded evaluation and cannot substantiate a routing-improvement claim."
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "skill_roots": ["project", "user", "codex_home"],
+  "profiles": {
+    "safe": {"sandbox": "read-only", "approval": "on-request", "timeout_seconds": 30},
+    "newsletter-draft": {"sandbox": "workspace-write", "approval": "on-request", "timeout_seconds": 900}
+  },
+  "routes": [
+    {"id":"crypto-universe-discovery","match_any":["crypto-universe-discovery","discover the crypto universe","build a token universe","create a universe","universe coverage and identity"],"skill":"crypto-universe-discovery","reason":"Build and reconcile an eligible crypto asset universe."},
+    {"id":"market-data-validation","match_any":["market-data-validation","validate market data","check market data freshness","reconcile price feeds"],"skill":"market-data-validation","reason":"Validate identity, freshness, units, and consistency of market observations."},
+    {"id":"small-cap-screening","match_any":["small-cap-screening","screen small-cap tokens","rank small-cap candidates","small cap candidate funnel"],"skill":"small-cap-screening","reason":"Apply a reproducible small-cap candidate screen."},
+    {"id":"technical-analysis","match_any":["technical-analysis","technical analysis of","chart structure and momentum","indicator analysis for"],"skill":"technical-analysis","reason":"Analyze price structure and technical conditions for named assets."},
+    {"id":"liquidity-analysis","match_any":["liquidity-analysis","analyze token liquidity","market depth and slippage","liquidity and execution capacity"],"skill":"liquidity-analysis","reason":"Assess executable liquidity, depth, and slippage."},
+    {"id":"onchain-intelligence","match_any":["onchain-intelligence","on-chain analysis","onchain activity","wallet activity and flows"],"skill":"onchain-intelligence","reason":"Interpret on-chain activity with attribution limits."},
+    {"id":"tokenomics-diligence","match_any":["tokenomics-diligence","tokenomics review","review tokenomics","token supply and unlocks","value capture and dilution"],"skill":"tokenomics-diligence","reason":"Review supply, unlocks, emissions, and token value capture."},
+    {"id":"catalyst-research","match_any":["catalyst-research","verify token catalyst","upcoming protocol catalysts","catalyst chronology"],"skill":"catalyst-research","reason":"Verify and date material protocol or market catalysts."},
+    {"id":"investment-falsification","match_any":["investment-falsification","falsify the investment thesis","strongest bear case for","challenge the token thesis"],"skill":"investment-falsification","reason":"Stress-test a stated investment hypothesis with contrary evidence."},
+    {"id":"daily-pick-selection","match_any":["daily-pick-selection","select today's crypto pick","evaluate a daily research pick","pick eligibility gates"],"skill":"daily-pick-selection","reason":"Apply non-compensable gates to select a pick or no-pick outcome."},
+    {"id":"weekly-watchlist","match_any":["weekly-watchlist","prepare the weekly watchlist","refresh my crypto watchlist","weekly crypto monitoring list"],"skill":"weekly-watchlist","reason":"Maintain a dated weekly watchlist with validation milestones."},
+    {"id":"newsletter-production","match_any":["newsletter-production","produce the crypto newsletter","write the daily crypto edition","render newsletter packet"],"skill":"newsletter-production","reason":"Assemble validated research artifacts into the daily edition."},
+    {"id":"small-cap-newsletter","match_any":["small-cap crypto daily","crypto newsletter","newsletter research"],"skill":"crypto-daily","reason":"Orchestrate this project's complete evidence-led small-cap newsletter workflow."},
+    {"id":"repository-implementation","match_any":["implement code","change the control plane","repair codex control plane","repair the control plane","build a cli"],"skill":"implementation-slice","reason":"The task requests one bounded repository implementation slice."}
+  ]
+}

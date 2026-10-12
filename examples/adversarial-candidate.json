@@ -1,0 +1,15 @@
+{
+  "candidate_identity": {"candidate_id": "chain:0xwrong", "name": "Example Alpha", "symbol": "ALPHA"},
+  "thesis": "Recent appreciation reflects durable adoption and creates value for tokenholders over the next six months.",
+  "observations": [
+    {"id": "identity-record", "field": "contract_address", "value": "chain:0xwrong", "observed_at": "2025-01-01T00:00:00Z", "source": "unverified-listing"},
+    {"id": "market-snapshot", "field": "price_volume", "value": {"price": 1.0, "volume_24h": 9000000}, "observed_at": "2025-01-01T00:00:00Z", "source": "single-pool-snapshot"},
+    {"id": "holder-snapshot", "field": "top_holder_share", "value": 0.82, "observed_at": "2026-10-11T12:00:00Z", "source": "explorer"},
+    {"id": "unlock-notice", "field": "unlock", "value": {"date": "2026-10-12", "share_of_supply": 0.30}, "observed_at": "2026-10-11T12:00:00Z", "source": "vesting-contract"},
+    {"id": "liquidity-depth", "field": "depth_2pct_usd", "value": 420, "observed_at": "2026-10-11T12:00:00Z", "source": "pool-snapshot"},
+    {"id": "catalyst-post", "field": "partnership_claim", "value": "rumored integration", "observed_at": "2026-10-11T12:00:00Z", "source": "social-post"}
+  ],
+  "calculations": [
+    {"id": "headline-market-cap", "name": "market_cap", "value": 100000000, "formula": "price * total_supply", "observed_at": "2026-10-11T12:00:00Z", "limitation": "total supply used as circulating supply"}
+  ]
+}

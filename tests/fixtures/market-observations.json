@@ -1,0 +1,4 @@
+[
+  {"provider":"source-a","price":1.0,"market_cap":100,"volume":10,"liquidity":5,"exchange":"venue-a","chain":"ethereum","contract_address":"0xabc","token_id":"token-x","retrieved_at":"2026-10-11T12:00:00Z","native_observation_time":"2026-10-11T11:59:00Z","quality":"native_timestamp"},
+  {"provider":"source-b","price":1.1,"market_cap":101,"volume":11,"liquidity":6,"exchange":"venue-b","chain":"ethereum","contract_address":"0xabc","token_id":"token-x","retrieved_at":"2026-10-11T12:00:01Z","native_observation_time":"2026-10-11T11:59:30Z","quality":"native_timestamp"}
+]
