@@ -1,0 +1,102 @@
+{
+  "sections": {
+    "small-cap-crypto-daily": {
+      "content": "OFFLINE FIXTURE DEMONSTRATION — NOT CURRENT MARKET RESEARCH — NO INVESTMENT-CLEARED PICK\n\nFACT — The saved local replay contains 2 provider-shaped observations associated with an Ethereum contract string. They do not establish a verified project name or ticker, a market trend, or current conditions. The replay supplies no daily price history and no primary-source catalyst evidence.\n\nThe persisted committee decision supports NO PICK. The screen failed its minimum history and data-coverage requirements, specialist desk handoffs are incomplete, and the committee record lacks independent review evidence. This edition demonstrates research and editorial handling of a dated fixture; it is not a live market report or trade instruction.\n\nFixture evidence: [market observations](../../../tests/fixtures/market-observations.json).",
+      "source_ids": [
+        "local-replay"
+      ]
+    },
+    "market-in-90-seconds": {
+      "content": "FACT — The two supplied records refer to the same reported Ethereum contract and were retrieved close together. They are snapshots, not a time series. The packet contains no market breadth, cross-asset context, or dated catalyst calendar.\n\nINFERENCE — No defensible directional market view can be drawn from these records. They can exercise identity and data-handling checks, but cannot describe today's market.",
+      "source_ids": [
+        "local-replay"
+      ]
+    },
+    "market-dashboard": {
+      "content": "Coverage is replay-only. Daily bars, benchmark history, peer breadth, dominance, positioning, volatility, and correlation are unavailable, so direction, median performance, dispersion, and realized risk cannot be calculated.\n\nThe market-cap, volume, and liquidity fields are provider observations on a synthetic fixture. Units and measurement windows are not defined in the raw records; venue depth and chain state are unverified. These fields are not current valuations or executable liquidity.",
+      "source_ids": [
+        "local-replay"
+      ]
+    },
+    "whats-moving": {
+      "content": "No leaders or laggards can be ranked. The packet has observations for one contract and no comparable asset set or price history. Differences between provider snapshots do not establish a market move.\n\nFACT — No flow or derivatives evidence, and no independently verified venue-level trade or activity data, was supplied.",
+      "source_ids": [
+        "local-replay"
+      ]
+    },
+    "under-the-radar": {
+      "content": "No dated primary-source protocol event is verified in this packet. Catalyst chronology, unlock schedule, and corroborated headlines are unverified. This is an evidence gap, not proof that no event exists.\n\nBefore elevating a catalyst, verify it against a dated project or governance source and establish whether it has already occurred or may already be reflected in price.",
+      "source_ids": [
+        "local-replay"
+      ]
+    },
+    "todays-deep-dive": {
+      "content": "The useful finding is about research readiness. The fixture associates both observations with `ethereum / 0xabc`. This shared reported string does not independently establish a real token or identify a project. Name, ticker, chain state, circulating supply, and fully diluted valuation are unverified or missing. Reported liquidity is not venue-classified, and the screen has no daily history for momentum or volatility.\n\nFACT — These gaps leave no supportable token-specific economic thesis. HYPOTHESIS — If identity is verified, the next question is whether persistent, independently measurable liquidity and tokenholder value capture exist. That hypothesis has not been tested. Research should first resolve identity and primary sources, then assess market history, supply, security, liquidity, and catalysts.\n\nRelated persisted artifacts: [universe](universe.json) · [screening](screening.json).",
+      "source_ids": [
+        "local-replay"
+      ]
+    },
+    "small-cap-leaderboard": {
+      "content": "The universe builder created an unnamed MICRO-tier record from the reported market-cap observations. It is not a verified tradable asset: project name and ticker are absent, supply is unknown, and chain state was not independently checked.\n\nThe screen rejected the record because minimum daily history and data coverage were unavailable. Its partial opportunity score is not a complete signal grade, so no rank is warranted.\n\nEvidence: [universe](universe.json) · [screening](screening.json).",
+      "source_ids": [
+        "local-replay"
+      ]
+    },
+    "pick-of-the-day": {
+      "content": "NO PICK. The committee returned NO_PICK for this candidate; its WATCH hypothesis is not an approved pick or trade instruction. Identity, market data, liquidity, supply, security, catalyst, token value capture, and risk gates remain unknown; committee-qualified independent review evidence is absent. The most important missing condition is a verified asset identity supported by complete, current evidence. This is research abstention, not investment advice or a trade instruction.\n\nDecision evidence: [committee](committee.json) · [screening](screening.json).",
+      "source_ids": []
+    },
+    "risk-desk": {
+      "content": "FACT — The risk assessment is incomplete. The packet cannot quantify stressed liquidity, venue concentration, holder concentration, dilution, contract security, or macro sensitivity.\n\nThe immediate operational risk is acting on an unverified identity or treating synthetic, unclassified observations as executable market data. Maintain abstention. Reopen research only after identity, market, supply, security, liquidity, and catalyst evidence is independently checked. No observation threshold here is a live stop or order. The risk desk handoff is incomplete; its exact artifact path is listed in [manifest](manifest.json).\n\nEvidence: [research manifest](manifest.json).",
+      "source_ids": []
+    },
+    "previous-pick-accountability": {
+      "content": "NOT REPORTABLE: ORIGINAL RECORD UNAVAILABLE. No authorized publication ledger was supplied, so there is no prior pick or outcome to score. The persisted accountability artifact records this limitation ([accountability record](accountability.json)).",
+      "source_ids": []
+    },
+    "watchlist": {
+      "content": "SEVEN-DAY WATCHLIST — EMPTY. No asset has enough verified evidence to carry forward as a token watch. The persisted watchlist artifact is empty ([watchlist](watchlist.json)).\n\nEvidence: [screening](screening.json) shows the candidate failed the screen's minimum history and coverage requirements; identity and chain state are unverified; reported liquidity is not venue-classified. Catalysts: none verified in the packet. Risks: identity ambiguity, unmeasured market history, unknown supply and security, and unclassified liquidity.\n\nRe-entry milestones: verify the contract on chain and resolve its project identity; obtain fresh market history and venue-classified liquidity; complete supply, security, and dated catalyst reviews; then obtain independent challenge review. Invalidation: any identity conflict or failed source verification keeps it off the watchlist. No market entry or price-confirmation condition is supported. These are research conditions, not trading triggers.",
+      "source_ids": []
+    },
+    "bottom-line": {
+      "content": "This replay produced a disciplined NO PICK, not a market call. Nothing in the packet establishes current leadership, a live catalyst, or an investment-cleared candidate. Monitor for a verified identity, fresh price history, classifiable liquidity, and primary-source event evidence. If those remain unavailable, keep the watchlist empty.\n\nDecision and monitoring records: [committee](committee.json) · [watchlist](watchlist.json).",
+      "source_ids": [
+        "local-replay"
+      ]
+    },
+    "sources-method-and-research-appendix": {
+      "content": "SOURCE AND CUTOFF — The only market input is the declared local replay fixture at `tests/fixtures/market-observations.json`; the source is marked SIMULATED_REPLAY and not live-verified. The records were retrieved around midday UTC on the edition date. The raw fixture defines no units or measurement windows. The manifest's example.invalid URL is a placeholder, not a live source. No network retrieval occurred.\n\nMETHOD — The offline pipeline normalized the fixture, built a contract-based universe record, screened the supplied history, and passed the resulting evidence to the committee. The persisted screen reports insufficient history and data coverage. The committee returned NO_PICK ([decision record](committee.json)).\n\nARTIFACT MAP — Market observations are in [market.json](market.json), screening in [screening.json](screening.json), candidate universe in [universe.json](universe.json), watchlist in [watchlist.json](watchlist.json), and prior-pick accountability in [accountability.json](accountability.json). The [manifest](manifest.json) lists every desk report.\n\nRESEARCH STATUS — Market-data, discovery, technicals, liquidity, on-chain, tokenomics, catalysts, risk, and falsification handoffs are incomplete simulated outputs. A native research reviewer independently inspected the raw fixture and found no basis for a pick. That offline review does not supply missing candidate research or satisfy the committee's persisted reviewer gate. The newsletter editor reviewed the draft; its material citation and wording findings are resolved in this final version. Previous-pick accountability is not reportable because the original ledger is unavailable.\n\nLIMITS — Provider observations and derived screening fields remain fixture data. Provider overlap, identity truth, chain state, supply, security, and event status are unresolved. No investment-cleared recommendation, trade, schedule, or publication is authorized by this draft.",
+      "source_ids": [
+        "local-replay"
+      ]
+    }
+  },
+  "editorial_claims": [
+    {
+      "section": "small-cap-crypto-daily",
+      "text": "FACT — The saved local replay contains 2 provider-shaped observations associated with an Ethereum contract string. They do not establish a verified project name or ticker, a market trend, or current conditions.",
+      "value": "2",
+      "artifact": "market",
+      "json_pointer": "/observation_count",
+      "source_ids": [
+        "local-replay"
+      ]
+    }
+  ],
+  "editorial_checklist": {
+    "opening_summary": true,
+    "market_sector_context": true,
+    "watchlist_opportunities": true,
+    "entry_confirmation_and_invalidation": true,
+    "risk_discussion": true,
+    "traceable_citations": true,
+    "missing_stale_contradictory_evidence": true
+  },
+  "unresolved_issues": [
+    "All market evidence is a synthetic local replay, not live research.",
+    "Asset name, ticker, and chain state are not verified.",
+    "Raw fixture units and measurement windows are undefined; daily history, venue-classified liquidity, supply, security, and dated catalyst evidence are unavailable.",
+    "All specialist desk handoffs are incomplete and simulated; no committee-qualified independent review evidence exists.",
+    "Previous-pick accountability cannot be calculated without the original publication ledger."
+  ]
+}

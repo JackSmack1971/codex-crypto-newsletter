@@ -1,0 +1,1 @@
+{"observation_count":2,"regime":"Declared local replay; market characterization limited to supplied observations.","snapshot_at":"2026-10-11T12:00:01Z","source_readiness":{"evidence_quality":"SIMULATED_REPLAY","failed_operations":0,"failures":[],"live_source_verified":false,"mode":"replay","source_attempts":[],"status":"READY","successful_observations":2}}

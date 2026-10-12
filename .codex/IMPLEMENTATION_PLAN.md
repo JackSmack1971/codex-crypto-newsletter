@@ -1,6 +1,17 @@
 # Control-plane implementation plan
 
-Objective: build a local-first, project-level Codex control surface for Small-Cap Crypto Daily from authorized research through a locally reviewable newsletter artifact. External publication and paid Codex runs remain explicit opt-ins.
+Product objective: deliver a local-first Small-Cap Crypto Daily edition authored and orchestrated by the active Codex CLI session, with evidence-backed candidate decision, seven-day watchlist, independent review, deterministic validation, and local draft delivery. Python is deterministic support. CP-001 through CP-004 are supporting workstreams; see [architecture](../docs/ARCHITECTURE.md) and [MVP roadmap](../docs/MVP_ROADMAP.md).
+
+## Product acceptance status
+
+| MVP | Gate | Status |
+|---|---|---|
+| MVP-1 | Native Codex authors a complete fixture-based 13-section edition; offline native reviewer/editor findings and deterministic fact/provenance/path checks pass; save locally. | ACCEPTED for this edition only. `.codex/results/native-mvp1-2026-10-11/acceptance-summary.md`. Editorial acceptance does not establish current market intelligence. |
+| MVP-2 | Authorized live retrieval, freshness, identity, provenance, corroboration, and evidence-backed decision in a retained dated run. | NOT ACCEPTED; no live crypto research run or current-market intelligence is in retained acceptance evidence. |
+| MVP-3 | Runtime-evidenced native specialist research delegation and independent evidence synthesis end to end, with reviewer separation. | NOT ACCEPTED; MVP-1 native reviewer/editor activity is edition review, not specialist research delegation. |
+| MVP-4 | Reliable daily workflow produces live research, validated decision/watchlist, independent review, fact-checked edition, and local delivery with recovery evidence. | NOT ACCEPTED; replay orchestrator is offline and no daily reliability acceptance exists. |
+
+The engineering rows below retain their original CP acceptance scope. They are supporting evidence and do not substitute for these product gates.
 
 | Phase | Acceptance criteria | Status / evidence |
 |---|---|---|

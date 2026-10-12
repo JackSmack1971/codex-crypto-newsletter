@@ -1,15 +1,15 @@
 # Agent roles and instruction scope
 
-## Engineering agent
+## Native newsletter runtime
 
-The root `AGENTS.md` applies to repository engineering: building, integrating, and verifying the control plane. It links to the audit, implementation plan, progress log, and relevant system contracts. It does not initiate daily research or newsletter production.
+The product is operated by the active Codex CLI session under root [`AGENTS.md`](../AGENTS.md) and the `crypto-daily` / `newsletter-production` skills. Codex owns research planning, evidence evaluation, PICK/NO PICK, synthesis, fact checking, editing, and authorship. It may delegate bounded specialist work to native subagents. Role definitions in `.codex/agents/` describe responsibilities; only runtime evidence establishes that a role was actually invoked.
 
-## Future newsletter runtime
+The skills contain conditional research, evidence, review, and release procedures. The [edition contract](edition-contract.md) defines the deterministic 13-section packet checks. Source policy and explicit operator authorization govern external reads. No instruction file or skill authorizes publication or trading.
 
-The newsletter workflow is product behavior, not the default engineering role. Its versioned operating specifications live in the [`crypto-daily` skill](../.agents/skills/crypto-daily/SKILL.md), its referenced evidence/editorial/release contracts, and the [edition contract](edition-contract.md). Consult them when implementing, reviewing, or explicitly operating the corresponding workflow. They do not authorize provider access, paid operations, trading, external messages, or publication; source policy and human approval boundaries remain in force.
+## Engineering/runtime boundary
 
-No newsletter-runtime `AGENTS.md` is currently defined or activated. If one is introduced later, scope it only to an explicitly selected runtime workspace and preserve the root engineering boundary.
+Python tools provide deterministic supporting functions: replay and allowed acquisition adapters, screening, report/schema validation, committee gates, watchlist persistence, provenance, packet assembly, fact checks, and rendering. The CP control plane helps inspect or guard specific local execution paths. It is not a separate AI chief research officer and is not required before Codex can write a fixture edition.
 
-## Instruction discovery
+`tools/daily_orchestrator.py` and `tools/daily_run.py` are currently deterministic replay/artifact workflows. Their completion must not be reported as native Codex research or delegation. The synthetic instruction file at `examples/synthetic-workspace/AGENTS.md` exists only for instruction-discovery tests.
 
-Codex discovers applicable `AGENTS.md` files from the repository path to the working directory, so a nested instruction file has a narrower scope. The repository's `examples/synthetic-workspace/AGENTS.md` is a test fixture for discovery only; it contains no runtime newsletter policy or authorization. This repository does not use a nested runtime instruction file.
+Codex discovers project instructions from the repository root through the active working directory, with more specific nested instructions applying later in the chain. See the current [Codex AGENTS.md documentation](https://developers.openai.com/codex/guides/agents-md). This project has no separate nested newsletter-runtime `AGENTS.md`.

@@ -1,0 +1,172 @@
+{
+  "status": "PASS",
+  "authoritative_original_evidence": "Preserved original packet protected fields plus manifest artifacts whose current raw hashes equal the deterministic run manifest.",
+  "protected_packet_fields": {
+    "edition": {
+      "structural_equal": true,
+      "canonical_sha256_before": "e7f410c70489c2430f2a0cad484f2e0206405e540ae10847ebb553dec4b2aac5",
+      "canonical_sha256_after": "e7f410c70489c2430f2a0cad484f2e0206405e540ae10847ebb553dec4b2aac5"
+    },
+    "sources": {
+      "structural_equal": true,
+      "canonical_sha256_before": "bffb242ed655a2f8d92778929a41d0107966829825336d9df8f1696a43695a10",
+      "canonical_sha256_after": "bffb242ed655a2f8d92778929a41d0107966829825336d9df8f1696a43695a10"
+    },
+    "pick": {
+      "structural_equal": true,
+      "canonical_sha256_before": "270790a5d0417472a48194bff51156931d4f9ca4ae39afc7170c0b07d9715ab6",
+      "canonical_sha256_after": "270790a5d0417472a48194bff51156931d4f9ca4ae39afc7170c0b07d9715ab6"
+    },
+    "assembly": {
+      "structural_equal": true,
+      "canonical_sha256_before": "722d47db27be5263094b950fc69cdeb07abb7254bfcffc1a95e9f469fac2acff",
+      "canonical_sha256_after": "722d47db27be5263094b950fc69cdeb07abb7254bfcffc1a95e9f469fac2acff"
+    }
+  },
+  "research_artifacts": {
+    "accountability.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "311e4b683aa23a5dccf6625e73f74dc3542bf8514f3fcd705d51764921964b1d",
+      "canonical_sha256_after": "311e4b683aa23a5dccf6625e73f74dc3542bf8514f3fcd705d51764921964b1d",
+      "run_manifest_raw_sha256": "55cc9b8ceb00e97ee4020dbfc54d37ee1c6a200a8105705b7c8138965a9d7007",
+      "current_raw_sha256": "55cc9b8ceb00e97ee4020dbfc54d37ee1c6a200a8105705b7c8138965a9d7007",
+      "raw_hash_match": true
+    },
+    "committee.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "6f4506e340426df4935c3acf75458212648954e663866a0f76ce39a59feb299f",
+      "canonical_sha256_after": "6f4506e340426df4935c3acf75458212648954e663866a0f76ce39a59feb299f",
+      "run_manifest_raw_sha256": "5a4689e193eb8ea23b8b39cf51d604eb467c1a37a91ba266f974b2898decd6ca",
+      "current_raw_sha256": "5a4689e193eb8ea23b8b39cf51d604eb467c1a37a91ba266f974b2898decd6ca",
+      "raw_hash_match": true
+    },
+    "desks/asset-79e12418edb8e4f7-market-data.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "135577803c26c7a92923003913e5295312860e565c5b9c056e2152f09c3cb380",
+      "canonical_sha256_after": "135577803c26c7a92923003913e5295312860e565c5b9c056e2152f09c3cb380",
+      "run_manifest_raw_sha256": "77824274422fd547932b6309fb307d12776bf6341d455907b2c80e2dad65f5c7",
+      "current_raw_sha256": "77824274422fd547932b6309fb307d12776bf6341d455907b2c80e2dad65f5c7",
+      "raw_hash_match": true
+    },
+    "desks/asset-79e12418edb8e4f7-discovery.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "a4dfa0d0240910be4449b288027b5705d05060744852498c199f03a58942043c",
+      "canonical_sha256_after": "a4dfa0d0240910be4449b288027b5705d05060744852498c199f03a58942043c",
+      "run_manifest_raw_sha256": "d90fff0fa6d7a67a9f4e3206e4ffdf79b4dd26d788984a89fc42dd9468bd0c29",
+      "current_raw_sha256": "d90fff0fa6d7a67a9f4e3206e4ffdf79b4dd26d788984a89fc42dd9468bd0c29",
+      "raw_hash_match": true
+    },
+    "desks/asset-79e12418edb8e4f7-technicals.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "a9b35208a578fab6fd9998c5fedebf87df1738c80a9d7e05ba73945e8eee2556",
+      "canonical_sha256_after": "a9b35208a578fab6fd9998c5fedebf87df1738c80a9d7e05ba73945e8eee2556",
+      "run_manifest_raw_sha256": "1c7b16a822129f3e5690d8ee5df9e6c79ce0f1856496bdef119760b6b464b2f0",
+      "current_raw_sha256": "1c7b16a822129f3e5690d8ee5df9e6c79ce0f1856496bdef119760b6b464b2f0",
+      "raw_hash_match": true
+    },
+    "desks/asset-79e12418edb8e4f7-liquidity.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "ce3358d0c13ca17997baa1b76230ddf9e8c1a5035ee7b79a6276e71b3b896089",
+      "canonical_sha256_after": "ce3358d0c13ca17997baa1b76230ddf9e8c1a5035ee7b79a6276e71b3b896089",
+      "run_manifest_raw_sha256": "2d3fce248197f5f6da844a0ee52393119bdaf5103a196d0b326c0b82e737dca9",
+      "current_raw_sha256": "2d3fce248197f5f6da844a0ee52393119bdaf5103a196d0b326c0b82e737dca9",
+      "raw_hash_match": true
+    },
+    "desks/asset-79e12418edb8e4f7-on-chain.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "2bd05dce57238fd855862055bba75e4bf2433979521ff977f7b9496d76a825f7",
+      "canonical_sha256_after": "2bd05dce57238fd855862055bba75e4bf2433979521ff977f7b9496d76a825f7",
+      "run_manifest_raw_sha256": "4fb6bf657c5058e787424d5f26bcfeeb6fa9929682584bed54b02c9502b24580",
+      "current_raw_sha256": "4fb6bf657c5058e787424d5f26bcfeeb6fa9929682584bed54b02c9502b24580",
+      "raw_hash_match": true
+    },
+    "desks/asset-79e12418edb8e4f7-tokenomics.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "fc06338ead5d915c5fc1e14335d2800ac38c8dfdf766d33478f10d0bdc3f6967",
+      "canonical_sha256_after": "fc06338ead5d915c5fc1e14335d2800ac38c8dfdf766d33478f10d0bdc3f6967",
+      "run_manifest_raw_sha256": "09dc032aac109856a31f4e94f74392b2f87ed1931cf9f3b2f9b175fe6ec6b393",
+      "current_raw_sha256": "09dc032aac109856a31f4e94f74392b2f87ed1931cf9f3b2f9b175fe6ec6b393",
+      "raw_hash_match": true
+    },
+    "desks/asset-79e12418edb8e4f7-catalysts.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "9d3513d38b3ad51b683342afd6613a31f4abf7061f36652ac2e051c3c7ff8760",
+      "canonical_sha256_after": "9d3513d38b3ad51b683342afd6613a31f4abf7061f36652ac2e051c3c7ff8760",
+      "run_manifest_raw_sha256": "1ccf8799b2eb46fa177b650b9cab483524a9a8473f9ab5563952c235c99977ef",
+      "current_raw_sha256": "1ccf8799b2eb46fa177b650b9cab483524a9a8473f9ab5563952c235c99977ef",
+      "raw_hash_match": true
+    },
+    "desks/asset-79e12418edb8e4f7-risk.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "8beaecb084e39a0fbafdf7d2d5173f1706ca71839b7b51494513b3b7198a9d2b",
+      "canonical_sha256_after": "8beaecb084e39a0fbafdf7d2d5173f1706ca71839b7b51494513b3b7198a9d2b",
+      "run_manifest_raw_sha256": "8392e9b748fda6430929791c6f6918160f13c4cfe81d8f849dbe1b87604d75b1",
+      "current_raw_sha256": "8392e9b748fda6430929791c6f6918160f13c4cfe81d8f849dbe1b87604d75b1",
+      "raw_hash_match": true
+    },
+    "desks/asset-79e12418edb8e4f7-falsification.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "be513842a5797e26122cabaccb7912f3a81d352a6e399eba8ca4d1b16a7f706c",
+      "canonical_sha256_after": "be513842a5797e26122cabaccb7912f3a81d352a6e399eba8ca4d1b16a7f706c",
+      "run_manifest_raw_sha256": "9aba66618999041a81af767e100e012f400d0a50fddb0476085d68177c0a1edf",
+      "current_raw_sha256": "9aba66618999041a81af767e100e012f400d0a50fddb0476085d68177c0a1edf",
+      "raw_hash_match": true
+    },
+    "market.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "5462c809574c5a82bbc5009b75e60dc0b010a7c80d625fb968a430c94ccaacc3",
+      "canonical_sha256_after": "5462c809574c5a82bbc5009b75e60dc0b010a7c80d625fb968a430c94ccaacc3",
+      "run_manifest_raw_sha256": "cfd886de22a49a961862e59b7aa6f503ab88406e358983334b83aa59318678b0",
+      "current_raw_sha256": "cfd886de22a49a961862e59b7aa6f503ab88406e358983334b83aa59318678b0",
+      "raw_hash_match": true
+    },
+    "methodology.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "1effae0974218ce8214e683af4ebff0df740ff90cc6d71256609fa3fc5cd804f",
+      "canonical_sha256_after": "1effae0974218ce8214e683af4ebff0df740ff90cc6d71256609fa3fc5cd804f",
+      "run_manifest_raw_sha256": "b8f6c698ba87f08d4ad13cc3a3011ad41b441eeb37047357927e1524ae8fead4",
+      "current_raw_sha256": "b8f6c698ba87f08d4ad13cc3a3011ad41b441eeb37047357927e1524ae8fead4",
+      "raw_hash_match": true
+    },
+    "screening.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "1af8d6daae111a0d2c88fd17d9d858b9b6c4226e54bf8ec7a2546273d5e9c75c",
+      "canonical_sha256_after": "1af8d6daae111a0d2c88fd17d9d858b9b6c4226e54bf8ec7a2546273d5e9c75c",
+      "run_manifest_raw_sha256": "aac6b448f33e4296dbe63fd0ce6b5326dc7c215905e7338b406137a07dc677ad",
+      "current_raw_sha256": "aac6b448f33e4296dbe63fd0ce6b5326dc7c215905e7338b406137a07dc677ad",
+      "raw_hash_match": true
+    },
+    "source-provenance.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "8afc539fa0f2c4b9ba5d7aea0399bcecad1019dede07076b48a525bb04642038",
+      "canonical_sha256_after": "8afc539fa0f2c4b9ba5d7aea0399bcecad1019dede07076b48a525bb04642038",
+      "run_manifest_raw_sha256": "41135c513523b4f0f167273a51f4a1a62926119dea6bdad0d5a858d927e21e87",
+      "current_raw_sha256": "41135c513523b4f0f167273a51f4a1a62926119dea6bdad0d5a858d927e21e87",
+      "raw_hash_match": true
+    },
+    "source-snapshot.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "5a701444ed8942f916c7174a35e1f5d8b8c8db7c47adc1fa5c5d5e7e9201a433",
+      "canonical_sha256_after": "5a701444ed8942f916c7174a35e1f5d8b8c8db7c47adc1fa5c5d5e7e9201a433",
+      "run_manifest_raw_sha256": "b70647dc0a859d0982c7ce8e610c30afa3c7eafc760c89c71bbe9450f4313084",
+      "current_raw_sha256": "b70647dc0a859d0982c7ce8e610c30afa3c7eafc760c89c71bbe9450f4313084",
+      "raw_hash_match": true
+    },
+    "watchlist.json": {
+      "structural_equal": true,
+      "canonical_sha256_before": "27d802511b19acb0af77c2a9e99a1bc0f197f031bc130c6ad03b4d2d5d46669d",
+      "canonical_sha256_after": "27d802511b19acb0af77c2a9e99a1bc0f197f031bc130c6ad03b4d2d5d46669d",
+      "run_manifest_raw_sha256": "3570982f62013a3485fb14e68fb19fe299ab4d7db41f8ec2304390247b10d953",
+      "current_raw_sha256": "3570982f62013a3485fb14e68fb19fe299ab4d7db41f8ec2304390247b10d953",
+      "raw_hash_match": true
+    }
+  },
+  "research_artifact_count": 17,
+  "protected_evidence_bundle_structural_equal": true,
+  "protected_evidence_bundle_canonical_sha256_before": "3b2cbf549992b1a274717ef7bc1d38ad87ba7a070bcbe60bf2e1a857f5810204",
+  "protected_evidence_bundle_canonical_sha256_after": "3b2cbf549992b1a274717ef7bc1d38ad87ba7a070bcbe60bf2e1a857f5810204",
+  "sections_match_authoritative_editorial": true,
+  "schema_validation": "PASS",
+  "unexpected_changes": [],
+  "reconciliation_note": "The prior report is preserved as protected-content-comparison.previous.json. This report recomputes canonical hashes from preserved originals and confirms each research artifact raw hash equals the run-manifest original."
+}

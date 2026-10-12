@@ -1,23 +1,13 @@
-# Durable control-plane goal record
+# Durable product goal
 
-**Goal / observable outcome:** Build and verify a local-first, project-level Codex control surface for Small-Cap Crypto Daily research-to-newsletter work, with manifest-backed recommendations, safe execution boundaries, and an offline end-to-end acceptance path.
+**Objective:** Deliver a local-first Small-Cap Crypto Daily edition authored and orchestrated by the active Codex CLI session, with evidence-backed PICK/NO PICK, seven-day watchlist, independent research/editorial review, deterministic validation, and a locally reviewable Markdown draft.
 
-**Status:** offline acceptance complete; live research operation remains unconfigured and unverified.  
-**Owner / resumption note:** Main implementation owner. Evidence and implementation plan are in `.codex/PROGRESS.md` and `.codex/IMPLEMENTATION_PLAN.md`.  
-**Constraints / authorization:** Windows PowerShell target. No paid model launch, external publication, trade execution, global install, or remote mutation without separate explicit authorization. Keep subprocesses argument-array based, workspace paths bounded, reports credential-safe.
+**Current status:** MVP-1 fixture edition accepted for editorial workflow; live market intelligence remains unverified. MVP-2 through MVP-4 are not accepted. See [MVP roadmap](../docs/MVP_ROADMAP.md) and [progress](PROGRESS.md).
 
-## Acceptance criteria and evidence
+**Product role:** Codex CLI is the research team, coordinator, fact-checker, editor, and writer. Native subagents may handle bounded specialist work. Python tools are deterministic support for replay, calculations, policy checks, provenance, validation, assembly, and rendering.
 
-1. P0 doctor: implemented and tested offline; `doctor` probes version/config/workspace/instructions/skills without starting a model or exposing credentials.
-2. P1 routing: implemented and tested against real installed manifests plus four checked-in fixtures; reasons, rejections, override validation, duplicate/missing abstention, and denominator-backed metrics are present.
-3. P2 orchestration: implemented and tested offline; check-only is default, workspace/mode/profile validated, subprocess uses argv arrays with timeout and exit propagation.
-4. End-to-end: synthetic nested workspace passes doctor/policy/discovery/routing/mock launch/artifact readback and newsletter render.
-5. Packet behavior: no-pick packet check passes; renderer outputs a local 13-section edition.
+**Boundaries:** No nested Codex launcher for newsletter authoring. Normal active-session Codex reasoning is not a separate model/API invocation. External reads require current authorization; external publication and trading are not workflow actions. Preserve source provenance and distinguish configured, offline-tested, live-retrieved, data-validated, and independently reviewed evidence.
 
-## Explicit limits
+## Supporting control-plane work
 
-CoinGecko and DexPaprika are enabled as project-level MCP read sources; CoinPaprika MCP is disabled until its tool schema is verified and allowlisted. The fixed CoinPaprika REST and DexScreener routes remain available under exact-host read policy. No live market/news data tool has been called. Paid operations and external publication remain disabled, and the project has not produced a current-market newsletter. The project does not enforce a per-run source-call quota; shared provider quotas apply. The Codex skill resolver is a recommendation and does not establish live Codex trigger accuracy. No paid or live model session was started. Git metadata is absent, so Git status/diff checks are unavailable. No separate reviewer was available under the active no-subagent instruction.
-
-## Final evidence
-
-See `.codex/IMPLEMENTATION_PLAN.md` for exact commands and results. The offline acceptance artifact is `.codex/results/offline-acceptance.json` with a companion local Markdown draft.
+CP-001 through CP-004 remain useful infrastructure tracked in [implementation plan](IMPLEMENTATION_PLAN.md), [progress log](PROGRESS.md), and [historical audit](../control-plane-audit.md). They are not the product's primary objective and do not all need completion before Codex can author a fixture edition.

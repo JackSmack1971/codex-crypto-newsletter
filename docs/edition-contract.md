@@ -1,5 +1,7 @@
 # Edition packet contract (v1)
 
+> Product responsibility: the active Codex CLI session researches, decides, fact-checks, edits, and authors the newsletter. Python implements the deterministic packet validator, claim checker, assembler, and local Markdown renderer described below. The packet contract does not designate Python as the AI orchestrator or establish that supplied research is current or accurate. See [native Codex architecture](ARCHITECTURE.md).
+
 The control surface accepts a JSON packet created by an authorized research process. It does not fetch market data or verify source contents. All timestamps use ISO 8601; source URLs must be absolute HTTP(S) URLs.
 
 ## Required fields

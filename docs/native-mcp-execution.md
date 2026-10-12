@@ -1,5 +1,7 @@
 # Native Codex MCP execution adapter
 
+> Supporting adapter contract: the active Codex CLI session remains the research coordinator and newsletter author. A Python or App Server adapter can capture a source result for that session, but does not replace Codex's evidence evaluation or editorial judgment. Registration and lifecycle completion do not establish freshness, accuracy, corroboration, or MVP-2 acceptance; see [MVP roadmap](MVP_ROADMAP.md).
+
 The research adapter's `live-mcp` mode uses the installed Codex App Server protocol. It is a model-backed path and requires `--authorize-model-and-network`; no MCP invocation happens in replay mode or through MCP registration/discovery alone. The supported project server/tool allowlists and `.codex/source-policy.json` are both checked before starting Codex.
 
 ## Evidence contract (Codex CLI 0.162.1)

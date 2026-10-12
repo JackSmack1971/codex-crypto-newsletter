@@ -1,0 +1,78 @@
+{
+  "status": "PASS",
+  "authoritative_resolution_base": "C:\\TEST-repos\\experimental-01",
+  "resolution_rule": "All project-relative references resolve from the repository root exported by resolved tools/newsletter.py::ROOT; manifest artifact references are resolved by first resolving the manifest from that root, then its relative entries.",
+  "allowed_directories": [
+    "C:\\TEST-repos\\experimental-01\\tests\\fixtures",
+    "C:\\TEST-repos\\experimental-01\\.codex\\results\\native-mvp1-2026-10-11"
+  ],
+  "path_reference_count": 37,
+  "all_references_exist": true,
+  "unexpected_paths": [],
+  "claim_pointer_count": 1,
+  "claim_pointers_resolve": true,
+  "protected_research_artifact_count": 17,
+  "protected_evidence_structural_equal": true,
+  "protected_evidence_bundle_canonical_sha256_before": "3b2cbf549992b1a274717ef7bc1d38ad87ba7a070bcbe60bf2e1a857f5810204",
+  "protected_evidence_bundle_canonical_sha256_after": "3b2cbf549992b1a274717ef7bc1d38ad87ba7a070bcbe60bf2e1a857f5810204",
+  "canonical_hashes_match": true,
+  "reviewed_newsletter_sha256": "754cc65616bdaa1e835baa4a975b487d3d809d2e934cdeddd6a157c1733c2661",
+  "renderer_matches_markdown": true,
+  "newsletter_schema": "PASS",
+  "numerical_fact_check": "PASS",
+  "section_count": 13,
+  "research_reviewer": "PASS_NO_REMAINING_FACTUAL_OR_CLARITY_FINDINGS",
+  "editorial_reviewer": "PASS_NO_MATERIAL_BLOCKERS",
+  "acceptance_scope": {
+    "editorial": "EDITORIAL_ACCEPTED",
+    "live_market_research": "LIVE_MARKET_RESEARCH_UNVERIFIED",
+    "current_market_intelligence": "NOT_ESTABLISHED"
+  },
+  "validated_artifact_hashes": {
+    "source_fixture": {
+      "path": "tests/fixtures/market-observations.json",
+      "sha256": "d8e6a1725c5fcc600abf2bb1e513dbb94593f7f71281435a303a83dc4e087a2e"
+    },
+    "original_packet": {
+      "path": ".codex/results/native-mvp1-2026-10-11/packet.json",
+      "sha256": "f03826e95bdde4feb7da136efaf19ec222fa87e9954e2bcbee8f80687bf7c788"
+    },
+    "original_editorial_json": {
+      "path": ".codex/results/native-mvp1-2026-10-11/editorial.json",
+      "sha256": "fe04f6b5cf191768043f18edf45c11b2c7cf684d8c0f26c06b82183c4096a2ee"
+    },
+    "reviewed_editorial_json": {
+      "path": ".codex/results/native-mvp1-2026-10-11/editorial.final.json",
+      "sha256": "e5c866808078c4180b071c10d2c7a4fb3309aa95460cc4545a08e319e91046ca"
+    },
+    "merged_packet": {
+      "path": ".codex/results/native-mvp1-2026-10-11/edited-packet.json",
+      "sha256": "078220985f9606f1bd22110c8fc52f18373e60c19ca5ff6aa049ba1ba8c58edb"
+    },
+    "final_markdown": {
+      "path": ".codex/results/native-mvp1-2026-10-11/edition.md",
+      "sha256": "754cc65616bdaa1e835baa4a975b487d3d809d2e934cdeddd6a157c1733c2661"
+    },
+    "manifest": {
+      "path": ".codex/results/native-mvp1-2026-10-11/manifest.json",
+      "sha256": "b00358f30a5ba3a72cab7fe9d8e44c2ffe7afb5f9b1d66f6fee17c9ac7263a3c"
+    },
+    "run_manifest": {
+      "path": ".codex/results/native-mvp1-2026-10-11/run-manifest.json",
+      "sha256": "562c02b05d5ac42fb9403e97e005944dd27e31be8a1951486dcface81c844535"
+    },
+    "fact_check_report": {
+      "path": ".codex/results/native-mvp1-2026-10-11/fact-check-report.json",
+      "sha256": "9fc6434a5f7020b3e00c6e4a9580ab1991e4370b7eb9f050674abeaaf1938de9"
+    },
+    "review_findings": {
+      "path": ".codex/results/native-mvp1-2026-10-11/review-findings.json",
+      "sha256": "6d689f84a5896c3134f62a0ad71e79bdf2a0761f3c1b36219f2c725a571414cb"
+    },
+    "protected_content_comparison": {
+      "path": ".codex/results/native-mvp1-2026-10-11/protected-content-comparison.json",
+      "sha256": "67fb8cf7ee54652d96e02ae21469929c6b5e7d67c01a7e1f621d1b421d6508c3"
+    }
+  },
+  "validated_at_utc": "2026-10-12T11:39:23.792968+00:00"
+}

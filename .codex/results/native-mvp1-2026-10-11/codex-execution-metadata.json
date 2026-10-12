@@ -1,0 +1,94 @@
+{
+  "record_type": "native interactive Codex-session authorship metadata",
+  "recorded_at_utc": "2026-10-12T11:29:00Z",
+  "repository_root_resolution": {
+    "authoritative_base": "tools/newsletter.py::ROOT",
+    "rule": "Resolve every project-relative path from the repository root derived from the resolved newsletter module location, never from process CWD or run directory.",
+    "expected_root": "C:/TEST-repos/experimental-01"
+  },
+  "edition_date": "2026-10-11",
+  "runtime": {
+    "execution_mode": "Native, interactive Codex CLI session; the active Codex agent authored and revised the newsletter from persisted local evidence.",
+    "codex_cli_version": "codex-cli 0.162.1",
+    "version_verification": "Direct output of codex --version during final acceptance.",
+    "model_identifier": "UNKNOWN_NOT_EXPOSED_IN_SESSION_CONTEXT",
+    "session_id": "NOT_RECORDED",
+    "token_totals": "UNKNOWN_NOT_EXPOSED",
+    "cost": "UNKNOWN_NOT_EXPOSED",
+    "active_session_model_usage": "YES; model reasoning occurred in this active Codex session.",
+    "additional_model_session_launched_by_pipeline": "NO",
+    "separate_model_api_invocation": "NO",
+    "clarification": "No separate Codex session or API invocation was launched by the pipeline. This does not mean the active Codex session used no model."
+  },
+  "research_boundary": {
+    "input_mode": "saved local deterministic fixture replay",
+    "fixture_path": "tests/fixtures/market-observations.json",
+    "fixture_sha256": "d8e6a1725c5fcc600abf2bb1e513dbb94593f7f71281435a303a83dc4e087a2e",
+    "live_mcp_market_research": "NO",
+    "live_provider_market_or_news_research": "NO",
+    "crypto_market_data_network_requests": "NONE",
+    "official_codex_documentation_lookup": "Performed separately for Codex capability verification; not used as crypto market evidence.",
+    "edition_label": "OFFLINE FIXTURE DEMONSTRATION \u2014 NOT CURRENT MARKET RESEARCH",
+    "current_market_intelligence": "LIVE_MARKET_RESEARCH_UNVERIFIED"
+  },
+  "pipeline_record": {
+    "run_manifest_path": ".codex/results/native-mvp1-2026-10-11/run-manifest.json",
+    "run_manifest_status": "DEGRADED_NO_PICK",
+    "pipeline_replay_mode": "SIMULATED_REPLAY",
+    "pipeline_native_agent_execution": "NO (run manifest external_effects.native_agents=false); native reviewer and editor subagents were separately used by the active Codex session.",
+    "pipeline_mcp": "NO",
+    "pipeline_paid_models": "NO",
+    "pipeline_trades": "NO",
+    "pipeline_publication": "NO"
+  },
+  "native_reviewers": [
+    {
+      "role": "independent-reviewer",
+      "evidence_path": ".codex/results/native-mvp1-2026-10-11/review-findings.json",
+      "final_result": "Completed; no remaining factual or clarity issue."
+    },
+    {
+      "role": "newsletter-editor",
+      "evidence_path": ".codex/results/native-mvp1-2026-10-11/review-findings.json",
+      "final_result": "Completed; no material blocker."
+    }
+  ],
+  "outputs": {
+    "newsletter_path": ".codex/results/native-mvp1-2026-10-11/edition.md",
+    "merged_packet_path": ".codex/results/native-mvp1-2026-10-11/edited-packet.json",
+    "original_packet_path": ".codex/results/native-mvp1-2026-10-11/packet.json",
+    "original_packet_copy_path": ".codex/results/native-mvp1-2026-10-11/source-packet.original.json",
+    "original_editorial_path": ".codex/results/native-mvp1-2026-10-11/editorial.json",
+    "original_editorial_copy_path": ".codex/results/native-mvp1-2026-10-11/editorial.original.json",
+    "reviewed_editorial_path": ".codex/results/native-mvp1-2026-10-11/editorial.final.json",
+    "manifest_path": ".codex/results/native-mvp1-2026-10-11/manifest.json",
+    "run_manifest_path": ".codex/results/native-mvp1-2026-10-11/run-manifest.json",
+    "fact_check_path": ".codex/results/native-mvp1-2026-10-11/fact-check-report.json",
+    "review_findings_path": ".codex/results/native-mvp1-2026-10-11/review-findings.json",
+    "protected_content_comparison_path": ".codex/results/native-mvp1-2026-10-11/protected-content-comparison.json",
+    "acceptance_markdown_path": ".codex/results/native-mvp1-2026-10-11/acceptance-summary.md",
+    "acceptance_json_path": ".codex/results/native-mvp1-2026-10-11/acceptance-summary.json",
+    "execution_metadata_path": ".codex/results/native-mvp1-2026-10-11/codex-execution-metadata.json",
+    "path_validation_path": ".codex/results/native-mvp1-2026-10-11/metadata-path-validation.json"
+  },
+  "artifact_sha256": {
+    "source_fixture": "d8e6a1725c5fcc600abf2bb1e513dbb94593f7f71281435a303a83dc4e087a2e",
+    "original_packet": "f03826e95bdde4feb7da136efaf19ec222fa87e9954e2bcbee8f80687bf7c788",
+    "original_editorial_json": "fe04f6b5cf191768043f18edf45c11b2c7cf684d8c0f26c06b82183c4096a2ee",
+    "reviewed_editorial_json": "e5c866808078c4180b071c10d2c7a4fb3309aa95460cc4545a08e319e91046ca",
+    "merged_packet": "078220985f9606f1bd22110c8fc52f18373e60c19ca5ff6aa049ba1ba8c58edb",
+    "final_markdown": "754cc65616bdaa1e835baa4a975b487d3d809d2e934cdeddd6a157c1733c2661",
+    "manifest": "b00358f30a5ba3a72cab7fe9d8e44c2ffe7afb5f9b1d66f6fee17c9ac7263a3c",
+    "run_manifest": "562c02b05d5ac42fb9403e97e005944dd27e31be8a1951486dcface81c844535",
+    "fact_check_report": "9fc6434a5f7020b3e00c6e4a9580ab1991e4370b7eb9f050674abeaaf1938de9",
+    "review_findings": "6d689f84a5896c3134f62a0ad71e79bdf2a0761f3c1b36219f2c725a571414cb",
+    "protected_content_comparison": "67fb8cf7ee54652d96e02ae21469929c6b5e7d67c01a7e1f621d1b421d6508c3"
+  },
+  "acceptance": {
+    "editorial_status": "EDITORIAL_ACCEPTED",
+    "live_research_status": "LIVE_MARKET_RESEARCH_UNVERIFIED",
+    "test_command": "python -m pytest -q tests/test_newsletter.py tests/test_adversarial_review.py",
+    "test_result": "17 passed"
+  },
+  "consistency_note": "The earlier comparison is retained as protected-content-comparison.previous.json; the current protected-content-comparison.json is the reconciled root-based evidence comparison."
+}

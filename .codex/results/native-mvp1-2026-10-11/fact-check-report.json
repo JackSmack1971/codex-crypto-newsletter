@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "offline_only": true,
+  "command": "python tools/newsletter.py fact-check .codex/results/native-mvp1-2026-10-11/edited-packet.json --manifest .codex/results/native-mvp1-2026-10-11/manifest.json",
+  "result": "PASS: registered numerical claims resolve to persisted evidence and citations",
+  "newsletter_numeric_claims": [
+    {
+      "section": "small-cap-crypto-daily",
+      "claim": "2 provider-shaped observations",
+      "artifact": "market.json",
+      "json_pointer": "/observation_count",
+      "value": 2,
+      "source_id": "local-replay",
+      "status": "VERIFIED"
+    }
+  ],
+  "other_material_numeric_context": [
+    {
+      "claim": "seven-day watchlist horizon",
+      "artifact": "watchlist.json",
+      "json_pointer": "/window_days",
+      "value": 7,
+      "status": "VERIFIED; spelled out in prose and checked directly against persisted watchlist"
+    },
+    {
+      "claim": "edition date and cutoff",
+      "artifact": "packet.json",
+      "json_pointers": [
+        "/edition/date",
+        "/edition/cutoff_utc"
+      ],
+      "status": "PRESERVED EDITION METADATA; not a current-market claim"
+    }
+  ],
+  "decision_check": {
+    "claim": "NO PICK",
+    "artifact": "committee.json",
+    "json_pointer": "/status",
+    "value": "NO_PICK",
+    "hypothesis_pointer": "/decision_records/0/hypothesis",
+    "hypothesis_value": "WATCH",
+    "status": "VERIFIED; WATCH is explicitly not an approved pick or trade"
+  },
+  "watchlist_check": {
+    "claim": "empty watchlist",
+    "artifact": "watchlist.json",
+    "json_pointer": "/ranked_watchlist",
+    "value": [],
+    "status": "VERIFIED"
+  },
+  "fixture": {
+    "path": "tests/fixtures/market-observations.json",
+    "sha256": "d8e6a1725c5fcc600abf2bb1e513dbb94593f7f71281435a303a83dc4e087a2e",
+    "label": "offline fixture; not current market research"
+  },
+  "limitations": "Deterministic fact-check covers registered digit-formatted claims; qualitative statements and spelled-out seven-day horizon were separately checked against the cited persisted artifacts and raw fixture."
+}

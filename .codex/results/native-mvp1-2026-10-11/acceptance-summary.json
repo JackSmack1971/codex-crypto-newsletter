@@ -1,0 +1,32 @@
+{
+  "status": "EDITORIAL_ACCEPTED",
+  "editorial_acceptance": "EDITORIAL_ACCEPTED",
+  "live_market_research": "LIVE_MARKET_RESEARCH_UNVERIFIED",
+  "final_statement": "MVP-1: Editorial workflow accepted. Native Codex authored and reviewed a complete fixture-based cryptocurrency newsletter. Structural, numerical, and evidence-integrity checks passed. Current market intelligence, live MCP research, and provider-data freshness remain unverified.",
+  "current_market_intelligence": "NOT_ESTABLISHED; editorial acceptance is not a freshness check.",
+  "edition": "2026-10-11",
+  "publication_state": "LOCAL_DRAFT_ONLY_NOT_PUBLISHED",
+  "decision": "NO_PICK",
+  "watchlist": "EMPTY_SEVEN_DAY_WATCHLIST",
+  "edition_path": ".codex/results/native-mvp1-2026-10-11/edition.md",
+  "edition_sha256": "754cc65616bdaa1e835baa4a975b487d3d809d2e934cdeddd6a157c1733c2661",
+  "execution_metadata_path": ".codex/results/native-mvp1-2026-10-11/codex-execution-metadata.json",
+  "next_milestone": "MVP-2: replace fixture-only research with verified current cryptocurrency market intelligence using Codex native research capabilities; keep the accepted editorial workflow intact and do not add a nested Codex launcher.",
+  "checks": {
+    "metadata_json": "PASS",
+    "newsletter_schema": "PASS",
+    "numerical_fact_check": "PASS",
+    "protected_evidence_structural_comparison": "PASS",
+    "protected_evidence_canonical_hashes_match": "PASS",
+    "all_13_sections": "PASS",
+    "research_reviewer": "PASS_NO_REMAINING_FACTUAL_OR_CLARITY_FINDINGS",
+    "editorial_reviewer": "PASS_NO_MATERIAL_BLOCKERS",
+    "pytest": "17 passed",
+    "repository_root_path_integrity": "PASS",
+    "claim_pointer_integrity": "PASS",
+    "metadata_artifact_hash_consistency": "PASS",
+    "editorial_acceptance": "EDITORIAL_ACCEPTED",
+    "live_market_research": "LIVE_MARKET_RESEARCH_UNVERIFIED"
+  },
+  "path_validation_report_path": ".codex/results/native-mvp1-2026-10-11/metadata-path-validation.json"
+}

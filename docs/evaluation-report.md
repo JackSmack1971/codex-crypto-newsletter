@@ -1,5 +1,7 @@
 # Research control-plane evaluation
 
+> **Historical offline evaluation.** The measured routing/workload metrics below describe their saved fixture runs. They do not establish current source health, live delegation, editorial quality, or acceptance of a newly authored edition. Product acceptance gates are in [MVP_ROADMAP.md](MVP_ROADMAP.md).
+
 Run the deterministic, offline suite with:
 
 ```powershell

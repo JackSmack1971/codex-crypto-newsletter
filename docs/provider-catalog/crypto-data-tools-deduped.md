@@ -1,5 +1,7 @@
 # Free Crypto Data Ingestion for AI Agents — Deduplicated Master List
 
+> **Historical discovery notes, checked October 2026.** Provider names, endpoints, pricing, quotas, and feature claims here are not current authorization or live-readiness evidence. Verify each required operation against current official provider sources and `.codex/source-policy.json` before use. The canonical product workflow and acceptance gates are in [../ARCHITECTURE.md](../ARCHITECTURE.md) and [../MVP_ROADMAP.md](../MVP_ROADMAP.md).
+
 *Consolidated from three overlapping research passes (checked as of Oct 2026). Duplicate entries merged; conflicting figures noted where sources disagreed.*
 
 ---

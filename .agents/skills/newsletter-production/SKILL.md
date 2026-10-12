@@ -5,13 +5,15 @@ description: "Assemble validated research artifacts into the Small-Cap Crypto Da
 
 # Newsletter Production
 
+Codex CLI's active session is the editor and author. It drafts from the validated evidence, resolves reviewer feedback, and owns the final narrative. The Python packet utilities below supply deterministic assembly, numerical checks, structure validation, and rendering; the `newsletter-editor` agent definition is an optional native reviewer/editor role and is not required as a separate service or launcher.
+
 ## Inputs and outputs
 
-Input: an edition manifest with persisted market/screening snapshots, exactly nine desk reports, committee decision, seven-day watchlist state, prior-pick accountability, sources, and methodology. Output: assembled v1 13-section evidence packet, an editorial draft from the `newsletter-editor` specialist, a fact-check result, and local Markdown preview.
+Input: validated research evidence, decision and watchlist records, provenance, and methodology. Output: a Codex-authored v1 13-section edition, deterministic fact-check/structure results, and local Markdown draft. When using the Python assembler, its input manifest additionally requires persisted market/screening snapshots, exactly nine desk reports, committee decision, seven-day watchlist state, prior-pick accountability, sources, and methodology.
 
 ## Workflow
 
-1. Confirm evidence cutoff, source permission, and required input artifacts. 2. Assemble with `python tools/newsletter.py assemble <manifest.json> --output <packet.json>`. 3. Give the packet and artifact index to the read-only `newsletter-editor`; preserve the exact section order and evidence gaps. 4. Require `editorial_claims` and `editorial_checklist`, then run `python tools/newsletter.py fact-check <packet.json> --manifest <manifest.json>`. 5. Run `check`, then render a local preview; release only under the existing explicit human approval contract.
+1. Confirm evidence cutoff, source permission, and provenance. 2. Ask Codex to write all thirteen sections, preserving the exact section order and evidence gaps. 3. If assembling persisted evidence with Python, run `python tools/newsletter.py assemble <manifest.json> --output <packet.json>`. 4. Register material numerical claims with `editorial_claims`, then run `python tools/newsletter.py fact-check <packet.json> --manifest <manifest.json>` and `check`. 5. Incorporate independent research and editorial reviewer findings; retain review records. 6. Render and save the Markdown draft locally. No publish action is available or authorized by this workflow.
 
 ## Evidence and failure behavior
 

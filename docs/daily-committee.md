@@ -1,5 +1,7 @@
 # Daily pick committee
 
+> This Python component deterministically applies decision gates to a supplied packet. Codex CLI remains the research coordinator and decision owner; the committee utility is supporting validation, not an AI orchestrator. It does not create live evidence. See [native architecture](ARCHITECTURE.md) and [MVP gates](MVP_ROADMAP.md).
+
 `tools/daily_committee.py` evaluates a dated finalist packet and emits one
 decision record per candidate. It consumes the output from the offline
 small-cap scoring engine (`score_record`), the assembled research desk report,
@@ -9,7 +11,7 @@ target or trade setup.
 Run a packet as an editorial decision preview:
 
 ```powershell
-python tools/daily_committee.py examples/finalists.json --output examples/committee-decision.json
+python tools/daily_committee.py path\to\reviewed-finalists.json --output committee-decision.json
 ```
 
 The packet has `cutoff_utc`, optional `max_market_data_age_hours` (default 24),
