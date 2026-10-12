@@ -200,7 +200,7 @@ class ResearchSourcesTests(unittest.TestCase):
 
     def test_native_mcp_result_enters_cp003a_provenance_only_after_validation(self):
         def executor(**kwargs):
-            return {"status": "VERIFIED", "request_id": "req-1", "thread_id": "thread-1", "turn_id": "turn-1",
+            return {"status": "VERIFIED", "turn_success": True, "request_id": "req-1", "thread_id": "thread-1", "turn_id": "turn-1",
                 "records": [{"call_id": "call-1", "content_sha256": "payload-hash"}],
                 "observations": [{"provider": "dexpaprika-dex-data", "token_id": "0xabc", "chain": "ethereum", "price": 1.2}],
                 "execution_record": {"schema_version": 1, "request_id": "req-1"}, "events": [{"sha256": "event-hash"}]}
@@ -215,6 +215,21 @@ class ResearchSourcesTests(unittest.TestCase):
         self.assertEqual('thread-1', provenance['codex_thread_id'])
         self.assertEqual('payload-hash', provenance['content_sha256'])
         self.assertEqual(1, result['native_execution_record']['schema_version'])
+
+    def test_missing_enclosing_turn_success_defaults_to_unsuccessful(self):
+        def executor(**kwargs):
+            return {"status": "VERIFIED", "request_id": "req-1", "thread_id": "thread-1", "turn_id": "turn-1",
+                "records": [{"call_id": "call-1", "content_sha256": "payload-hash"}],
+                "observations": [{"provider": "dexpaprika-dex-data", "token_id": "0xabc", "chain": "ethereum", "price": 1.2}],
+                "execution_record": {"schema_version": 1}, "events": [{"sha256": "event-hash"}]}
+        with patch('native_mcp.execute', side_effect=executor):
+            result = rs.execute('live-mcp', authorize_model_and_network=True, mcp_provider='dexpaprika',
+                mcp_tool='getTokenMultiPrices', mcp_arguments={'network': 'ethereum'})
+        self.assertEqual('PARTIAL', result['status'])
+        self.assertFalse(result['turn_success'])
+        self.assertTrue(result['live_source_verified'])
+        self.assertTrue(result['observations'])
+        self.assertEqual('TURN_INCOMPLETE', result['failures'][0]['status'])
 
     def test_native_mcp_tool_output_survives_when_enclosing_turn_fails_as_partial(self):
         def executor(**kwargs):

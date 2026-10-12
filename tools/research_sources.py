@@ -199,7 +199,7 @@ def execute(mode, *, replay_path=None, requests=None, authorized=False, policy_p
                     "codex_turn_id": result.get("turn_id"), "mcp_call_id": result["records"][0]["call_id"],
                     "observation_index": index}})
         record = result.get("execution_record")
-        turn_success = result.get("turn_success", True)
+        turn_success = result.get("turn_success", False)
         failures = [] if observations and turn_success else ([{"status": "TURN_INCOMPLETE", "reason": "MCP tool completed and validated; enclosing Codex turn did not complete successfully"}] if observations else [{"status": result.get("status"), "reason": result.get("reason")}])
         return {"mode": mode, "status": "OK" if observations and turn_success else "PARTIAL" if observations else result.get("status", "UNVERIFIED"),
                 "reason": result.get("reason"), "observations": observations,

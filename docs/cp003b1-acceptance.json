@@ -9,8 +9,9 @@
     "tested_live": "UNVERIFIED"
   },
   "independent_review": {
-    "result": "CLEAR",
-    "scope": "Final working tree, RPC response-to-notification correlation, malformed early completion, completion-before-start rejection, test counts, and report.",
+    "previous_result": "CLEAR for commit 2e351eb",
+    "current_result": "CLEAR",
+    "scope": "Follow-up for post-turn malformed notifications and missing enclosing-turn success evidence.",
     "blocking_findings": 0
   },
   "live_acceptance": {
@@ -51,18 +52,20 @@
     "persistence": "CLI output uses atomic replacement for success and failure records."
   },
   "offline_tests": [
-    {"command": "python -m pytest tests/test_native_mcp.py tests/test_research_sources.py tests/test_daily_orchestrator.py -q", "result": "PASS", "tests": 57},
-    {"command": "python -m pytest -q", "result": "PASS", "tests": 150},
+    {"command": "python -m pytest tests/test_native_mcp.py tests/test_research_sources.py tests/test_daily_orchestrator.py -q", "result": "PASS", "tests": 59},
+    {"command": "python -m pytest -q", "result": "PASS", "tests": 152},
     {"command": "git diff --check", "result": "PASS"}
   ],
   "coverage": [
     "Mock App Server initialization, initialized notification, thread/start, turn/start, event consumption, and completion",
+    "Malformed array/string/number/null event after turn/start retained as structured UNVERIFIED failure",
     "Actual JSON-RPC transport unit path for response ID matching, notification queuing, and malformed array/string/number/null rejection",
     "Mock RPC failure, malformed thread response, timeout, and cleanup failure retain versioned records; combined timeout plus cleanup failure preserves timeout as primary reason",
     "Missing/duplicate/conflicting lifecycle, missing identifiers, unrelated thread/turn, and mismatched tool identity",
     "Unauthorized provider/tool, read-only annotation, request-argument mismatch, and sensitive argument rejection",
     "Failed tool, interrupted/failed enclosing turn, malformed provider response, model-summary rejection, and observation normalization",
-    "Credential redaction, redaction markers, linked event hashes, and tamper detection"
+    "Credential redaction, redaction markers, linked event hashes, and tamper detection",
+    "Absent enclosing-turn success defaults false and keeps validated tool observations PARTIAL"
   ],
   "unverified": [
     "No genuine Codex model session or provider call was executed.",

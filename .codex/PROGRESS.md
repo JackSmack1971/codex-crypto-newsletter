@@ -40,6 +40,13 @@ The offline control surface acceptance path is implemented and tested. The newly
 - **Verification:** Installed CLI 0.162.1 generated 317 schema files; the sorted-path/file-hash bundle digest is recorded in `docs/cp003b1-acceptance.json`. `python -m pytest tests/test_native_mcp.py tests/test_research_sources.py tests/test_daily_orchestrator.py -q` — PASS, 57 tests. `python -m pytest -q` — PASS, 150 tests. `git diff --check` — PASS. Stubbed adapter RPC and actual JSON-RPC transport checks cover response ID matching, malformed array/string/number/null messages, RPC-established thread/turn cross-checks, malformed early completion, out-of-order/duplicate/conflicting lifecycle, RPC failure, timeout, cleanup failure (including combined timeout plus cleanup), redaction/hash-chain integrity, authorization, normalization, and research mapping. Final independent review CLEAR with zero blocking findings. CP-003B.1 is recorded IMPLEMENTED; TESTED_OFFLINE; INDEPENDENT_REVIEW_CLEARED. The accepted protocol contract is frozen for this slice.
 - **Limits:** No live model or provider request was run. CP-003B.2 remains NOT RUN and requires explicit operator authorization for both model usage and network access. MCP accuracy, freshness, and independent corroboration are not proved by runtime lifecycle events. The sanitized-event hash chain proves consistency of retained records, not authenticity of the originating events.
 
+## Iteration 7 — PR #2 review follow-up
+
+- **Criterion:** Ensure malformed post-turn protocol messages retain a structured failure record, and missing enclosing-turn success evidence cannot be treated as successful research completion.
+- **Result:** The event-consumption loop now rejects non-object JSON messages after `turn/start`, retaining a sanitized malformed-event marker in the versioned execution record. CP-003A acquisition now defaults missing `turn_success` to false, preserving validated tool observations as `PARTIAL` without claiming enclosing-turn success.
+- **Verification:** `python -m pytest tests/test_native_mcp.py tests/test_research_sources.py tests/test_daily_orchestrator.py -q` — PASS, 59 tests. `python -m pytest -q` — PASS, 152 tests. `git diff --check` — PASS. Targeted independent review CLEAR with zero blocking findings. CP-003B.1 remains accepted at the offline protocol boundary; CP-003B.2 remains not run.
+- **Limits:** No live MCP/model/network call occurred; CP-003B.2 remains NOT RUN.
+
 ## Iteration 3 — project MCP source setup
 
 - **Criterion:** Configure approved, project-level, read-only crypto data MCPs without adding credentials, paid tools, or write-capable tools.

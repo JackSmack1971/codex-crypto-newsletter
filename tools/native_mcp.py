@@ -442,6 +442,10 @@ def execute(*, provider, tool, arguments, authorized=False, cwd=None, timeout=MA
             event = server.events.get(timeout=max(.01, deadline-time.monotonic()))
             if event is _APP_SERVER_EOF:
                 raise RuntimeError("app_server_exited")
+            if not isinstance(event, dict):
+                # Retain a sanitized marker before entering the structured failure path.
+                events.append({"_malformed": True})
+                raise RuntimeError("malformed_app_server_message")
             events.append(event)
             if event.get("method") == "turn/completed":
                 params = event.get("params") if isinstance(event.get("params"), dict) else {}

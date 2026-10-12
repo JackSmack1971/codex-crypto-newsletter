@@ -192,6 +192,10 @@ class AppServerAdapterTests(unittest.TestCase):
                 if self.scenario == "malformed_early_completion":
                     events.append({"method": "turn/completed", "params": []})
                     return {"turn": {"id": "turn-1"}}, events
+                if self.scenario.startswith("malformed_after_turn_"):
+                    malformed = {"array": [], "string": "invalid", "number": 42, "null": None}[self.scenario.rsplit("_", 1)[-1]]
+                    self.events.put(malformed)
+                    return {"turn": {"id": "turn-1"}}, events
                 if self.scenario not in ("timeout", "timeout_cleanup_failure"):
                     for event in lifecycle():
                         self.events.put(event)
@@ -238,6 +242,15 @@ class AppServerAdapterTests(unittest.TestCase):
         self.assertEqual("UNVERIFIED", result["status"])
         self.assertIn("execution_record", result)
         self.assertTrue(native_mcp.verify_event_hashes(result["events"]))
+
+    def test_malformed_post_turn_notifications_retain_structured_failure_records(self):
+        for value_type in ("array", "string", "number", "null"):
+            result, _ = self.run_execute(f"malformed_after_turn_{value_type}")
+            self.assertEqual("UNVERIFIED", result["status"])
+            self.assertEqual("RuntimeError", result["reason"])
+            self.assertIn("execution_record", result)
+            self.assertTrue(native_mcp.verify_event_hashes(result["events"]))
+            self.assertEqual("app-server/malformed", result["events"][0]["method"])
 
     def test_mocked_rpc_failure_and_timeout_retain_versioned_evidence(self):
         for scenario in ("init_failure", "timeout", "malformed_thread", "missing_turn_response_id", "cleanup_failure", "timeout_cleanup_failure"):
