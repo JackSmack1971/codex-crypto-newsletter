@@ -1,6 +1,6 @@
 # Market data provider integration
 
-`tools/research_sources.py` contains a read-only provider registry, fixed REST routes, common observation envelope, bounded retrieval behavior, and fixture replay. Discovery routes are tagged `discovery`; the CoinPaprika ticker route is tagged `observation`. Search output is never automatically promoted into a verified asset identity. Normalization retains every original row and its provider payload, including duplicate or conflicting reports.
+`tools/research_sources.py` contains a read-only provider registry, fixed REST routes, common observation envelope, bounded retrieval behavior, fixture replay, and the provider-neutral `execute(mode, ...)` adapter. Discovery routes are tagged `discovery`; the CoinPaprika ticker route is tagged `observation`. Search output is never automatically promoted into a verified asset identity. Normalization retains every original row and its provider payload, including duplicate or conflicting reports.
 
 ## Provider registry
 
@@ -15,7 +15,9 @@
 | CCXT public exchange data | Candidate, disabled | exchange tickers, trades, books, OHLCV | Public methods need no API key per CCXT, but each exchange controls its own quota and terms. CCXT describes variable endpoint weights and warns about bans; no library dependency or exchange activated: [manual](https://github.com/ccxt/ccxt/wiki/manual) |
 | Hyperliquid Info API | Candidate, disabled | exchange mids and market metadata | Public `/info` reads are documented. Shared REST limit is weighted at 1,200/minute; no request fee was found in the official API docs, but live access/cost/terms are unverified: [Info endpoint](https://hyperliquid.gitbook.io/Hyperliquid-docs/for-developers/api/info-endpoint), [limits](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/rate-limits-and-user-limits) |
 
-Registry `active` indicates an explicitly supported route/MCP integration, not proven live health. The four candidates remain disabled and have no authorized operation. `--execute` can only use fixed routes whose source and HTTPS host are allowed by `.codex/source-policy.json`; no arbitrary URLs, credentials, payment, or trading operations are exposed. Existing MCP configuration remains governed by its own tool allowlists and source policy; this adapter does not perform MCP calls.
+Registry `active` indicates an explicitly supported route/MCP integration, not proven live health. The four candidates remain disabled and have no authorized operation. `--execute` can only use fixed routes whose source and HTTPS host are allowed by `.codex/source-policy.json`; no arbitrary URLs, credentials, payment, or trading operations are exposed. The daily controller defaults to `replay`; `live-rest` requires both `--mode live-rest` and `--authorize-live-rest`, accepts only fixed route/query operations, and caps each run at four requests with retries disabled. Its source snapshot records per-observation identity, provider, route, timestamps, digests, validation, request count, and explicit uncertainty about quotas/cost. Replay is marked `SIMULATED_REPLAY` and never counts as live-source verification.
+
+`live-mcp` is currently `BLOCKED`. Codex CLI 0.162.1 exposes MCP as a client and an experimental app-server, but a deterministic direct tool invocation from this offline controller has not been verified; using it would require a model turn, which is outside this adapter's authorization. MCP configuration and health remain descriptive and unverified.
 
 ## Retrieval and replay
 
@@ -30,4 +32,4 @@ The normal CLI path is dry-run. Live retrieval uses HTTPS, fixed host routes, de
 
 Every acquired result carries provider/source, retrieval time, route kind and raw data. Normalized observations carry native observation time when present and mark quality as `native_timestamp` or `retrieval_time_only`. A missing native timestamp is not inferred from retrieval time. Saved JSON can be replayed offline with `--replay`; replay keeps already-normalized rows intact so conflicting observations remain available for reconciliation.
 
-The CoinGecko and DexPaprika MCP integrations cannot be contract-tested through this REST adapter; actual MCP server availability and tool schemas remain unverified. Live checks are intentionally not run during offline acceptance.
+The CoinGecko and DexPaprika MCP integrations are not invoked by the REST adapter; actual MCP tool invocation, server availability, and result provenance remain unverified. Live checks are intentionally not run during offline acceptance.

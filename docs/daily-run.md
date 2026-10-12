@@ -1,5 +1,36 @@
 # Local daily run controller
 
+## Build a replay edition in one command
+
+The deterministic orchestrator creates all required local artifacts from a
+declared replay fixture, then renders a draft edition without manual artifact
+assembly:
+
+```powershell
+python tools/daily_orchestrator.py --date 2026-10-11 --replay tests/fixtures/market-observations.json --output .codex/results/daily-replay
+```
+
+The replay can be a provider-neutral observation array accepted by
+`research_sources.replay`, or an object with `observations`, optional `history`,
+`benchmark_history`, `sources`, and `market` fields. The output must be a new or
+empty project-local directory. The command stages its work and only commits the
+directory after successful editorial assembly; interrupted and failed stages
+leave no published run directory. Repeated runs require a fresh empty output
+directory. `run-manifest.json` records stage status, provenance, artifact hashes,
+and disabled external effects. Desk records remain explicitly incomplete until
+a separately verified research execution boundary is integrated, so editions
+are degraded and committee picks remain subject to existing evidence gates.
+
+To exercise the existing checkpoint controller against that compatible
+manifest, run:
+
+```powershell
+python tools/daily_run.py .codex/results/daily-replay/manifest.json
+```
+
+Neither command fetches live data, starts a Codex session, calls MCP, trades,
+schedules, or publishes.
+
 Run the controller manually from the repository root after saving a newsletter
 assembly manifest and all referenced research artifacts inside this project:
 

@@ -18,6 +18,20 @@
 
 The offline control surface acceptance path is implemented and tested. The newly approved CoinGecko and DexPaprika sources are configured for zero-cost reads only; paid operations and external publication remain disabled. No model launch or market/news retrieval has been performed in this iteration.
 
+## Iteration 4 — CP-001A deterministic daily replay orchestrator
+
+- **Criterion:** Generate a controller-compatible draft edition from a declared local replay fixture in one command, with explicit no-pick/degraded outcomes and traceable stage/artifact provenance.
+- **Result:** Added `tools/daily_orchestrator.py`. It runs existing source replay validation, universe construction, screen, nine incomplete desk handoffs, committee decision, and newsletter assembly/validation/rendering. Outputs are staged transactionally into a new or empty project-local directory. `run-manifest.json` records stage status, declared inputs, outputs, provenance, hashes, and disabled external effects. Empty input preserves explicit degraded/NO PICK; generated committee evidence cannot qualify a pick. Native Codex agents and MCP calls are not simulated.
+- **Verification:** `python -m pytest tests/test_daily_orchestrator.py tests/test_daily_run.py tests/test_newsletter.py -q` — PASS, 26 tests. `python -m pytest -q --disable-warnings` — PASS, 113 tests. `python -m py_compile tools/daily_orchestrator.py tests/test_daily_orchestrator.py` — PASS. Actual command `python tools/daily_orchestrator.py --date 2026-10-11 --replay tests/fixtures/market-observations.json --output .codex/results/cp001a-run-verified` — exit 0, `DEGRADED_NO_PICK`; existing `daily_run.py` consumed its manifest and wrote a valid packet/edition with expected `DEGRADED` status. `git diff --check` — PASS (line-ending warnings only).
+- **Limits:** Live acquisition, native agent research, MCP research, live daily production, scheduling, trades, and publication remain disabled and unaccepted. Full generated outputs were later removed from version control; the concise [acceptance summary](results/acceptance-summary.md) and reproducible fixture remain.
+
+## Iteration 5 — provenance review remediation
+
+- **Criterion:** Ensure live-verification labels and source attribution depend on successful invocation and validated observations; make disclosures mode-accurate; retain compact evidence while removing redundant generated artifacts.
+- **Result:** Live verification now requires successful recorded request attempts and validated observation provenance. Partial, unavailable, and structurally unverified provider responses remain unverified; failed live requests retain provider identity and are never attributed to `local-replay`. Methodology and edition disclosures reflect actual acquisition outcomes. Removed 76 generated files from five confirmed `.codex/results/cp001a-*` / `cp003a-*` directories; retained `tests/fixtures/market-observations.json` and a compact sanitized summary.
+- **Verification:** `python -m pytest tests/test_daily_orchestrator.py tests/test_newsletter.py tests/test_research_sources.py -q` — PASS, 44 tests. `python -m pytest -q` — PASS, 126 tests. `git diff --check` and staged `git diff --cached --check` — PASS.
+- **Limits:** Live provider behavior remains unverified; the live REST paths in regression tests use mocked responses. No Codex model, MCP call, trade, scheduling, or publication occurred.
+
 ## Iteration 3 — project MCP source setup
 
 - **Criterion:** Configure approved, project-level, read-only crypto data MCPs without adding credentials, paid tools, or write-capable tools.

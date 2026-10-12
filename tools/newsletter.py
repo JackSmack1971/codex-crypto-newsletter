@@ -98,7 +98,12 @@ def validate(packet: object, release: bool = False, *, reviewer_runtime_event_id
         parsed_url = urlparse(url if isinstance(url, str) else "")
         if parsed_url.scheme not in ("http", "https") or not parsed_url.netloc:
             errors.append(f"{prefix}.url must be an absolute HTTP(S) URL")
-        _timestamp(source.get("accessed_utc"), f"{prefix}.accessed_utc", errors)
+        if source.get("source_status") == "UNAVAILABLE":
+            if source.get("accessed_utc") is not None:
+                _timestamp(source.get("accessed_utc"), f"{prefix}.accessed_utc", errors)
+            _timestamp(source.get("attempted_utc"), f"{prefix}.attempted_utc", errors)
+        else:
+            _timestamp(source.get("accessed_utc"), f"{prefix}.accessed_utc", errors)
 
     sections = packet.get("sections")
     if not isinstance(sections, dict):
