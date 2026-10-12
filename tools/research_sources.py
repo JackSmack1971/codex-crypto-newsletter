@@ -200,14 +200,15 @@ def execute(mode, *, replay_path=None, requests=None, authorized=False, policy_p
                     "request_count": 0, "quota_cost": "not_applicable_local_replay", "validation": "PASS",
                     "research_usability": "REPLAY_ONLY", "live_source_verified": False, "observation_index": index}})
         return {"mode": mode, "status": "OK" if observations else "DEGRADED", "observations": observations,
-                "failures": [], "request_count": 0, "live_source_verified": False}
+                "failures": [], "request_count": 0, "source_attempts": [],
+                "live_source_verified": False, "mode": mode}
     if authorized is not True:
         raise PermissionError("live-rest requires explicit operator authorization")
     if replay_path is not None or not isinstance(requests, list) or not requests:
         raise ValueError("live-rest requires one or more fixed route/query requests")
     if len(requests) > max_requests:
         raise PermissionError("live-rest request budget exceeded")
-    observations, failures = [], []
+    observations, failures, source_attempts = [], [], []
     attempted_requests = 0
     for spec in requests:
         if not isinstance(spec, dict) or set(spec) != {"route", "query"}:
@@ -215,21 +216,39 @@ def execute(mode, *, replay_path=None, requests=None, authorized=False, policy_p
         route, query = spec["route"], spec["query"]
         if not isinstance(route, str) or route not in ROUTES:
             raise ValueError("unsupported research operation")
+        provider_id = ROUTES[route][0]
+        provider = PROVIDERS[provider_id]["source"]
+        source_attempt = {
+            "provider_id": provider_id,
+            "source_provider": provider,
+            "operation": route,
+            "endpoint_host": urlparse(ROUTES[route][1]).hostname,
+            "attempted_at": datetime.now(timezone.utc).isoformat(),
+            "status": "ATTEMPTED",
+            "request_count": 0,
+        }
+        source_attempts.append(source_attempt)
+        observations_before = len(observations)
         try:
             # One attempt per explicitly budgeted operation; callers may raise the
             # budget by selecting more operations, never through hidden retries.
             result = fetch(route, query, policy_path=policy_path, opener=opener, retries=0, now=now, use_cache=False)
             attempted_requests += result.get("request_count", 0)
+            source_attempt["request_count"] = result.get("request_count", 0)
             if result.get("status") != "OK":
+                source_attempt["status"] = "FAILED"
                 failures.append({"operation": route, "status": result.get("status", "UNKNOWN"),
                                  "reason": result.get("reason", "provider unavailable"),
+                                 "source_provider": provider,
                                  **({"error_type": result["error_type"]} if result.get("error_type") else {})})
                 continue
             meta = PROVIDERS[result["provider"]]
             endpoint_host = urlparse(ROUTES[route][1]).hostname
             source_rows = _source_rows(result, route)
             if not source_rows:
+                source_attempt["status"] = "UNAVAILABLE"
                 failures.append({"operation": route, "status": "NO_USABLE_OBSERVATIONS",
+                    "source_provider": provider,
                     "schema_status": "VALIDATED_EMPTY" if result.get("data") in ([], {"pairs": []}, {"currencies": []}, {"coins": []}) else "UNEXPECTED_RESPONSE_SHAPE"})
             for row in source_rows:
                 identity = _canonical_identity(row)
@@ -240,17 +259,32 @@ def execute(mode, *, replay_path=None, requests=None, authorized=False, policy_p
                     "endpoint_or_tool": route, "retrieved_at": result["retrieved_at"],
                     "provider_observed_at": row.get("native_observation_time"), "source_status": "LIVE_RETRIEVED",
                     "schema_status": "VALIDATED", "content_sha256": _digest(content),
-                    "normalized_artifact_sha256": _digest(normalized), "request_count": 1,
+                    "normalized_artifact_sha256": _digest(normalized),
                     "quota_cost": "zero_cost_configured; provider quota/cost unverified", "validation": "PASS",
                     "research_usability": "USABLE_WITH_PROVIDER_CLAIM_LIMITS", "live_source_verified": True,
+                    "request_count": result.get("request_count", 0),
                     "endpoint_host": endpoint_host}})
+            if len(observations) > observations_before:
+                source_attempt["status"] = "VALIDATED"
         except (ValueError, PermissionError, RuntimeError, TimeoutError) as exc:
             # Error details can contain provider-controlled material; keep only type.
-            attempted_requests += getattr(exc, "request_count", 0)
-            failures.append({"operation": str(route), "status": "FAILED", "error_type": type(exc).__name__})
+            failed_request_count = getattr(exc, "request_count", 0)
+            attempted_requests += failed_request_count
+            source_attempt["request_count"] = failed_request_count
+            source_attempt["status"] = "FAILED"
+            failures.append({"operation": str(route), "status": "FAILED", "source_provider": provider,
+                             "error_type": type(exc).__name__})
     status = "OK" if observations and not failures else "PARTIAL" if observations else "DEGRADED"
+    live_source_verified = bool(
+        status == "OK" and attempted_requests > 0 and source_attempts and
+        all(item["status"] == "VALIDATED" and item["request_count"] > 0 for item in source_attempts) and
+        observations and all(item["provenance"].get("validation") == "PASS" and
+                             item["provenance"].get("source_status") == "LIVE_RETRIEVED" and
+                             item["provenance"].get("request_count", 0) > 0 for item in observations)
+    )
     return {"mode": mode, "status": status, "observations": observations, "failures": failures,
-            "request_count": attempted_requests, "live_source_verified": bool(observations)}
+            "request_count": attempted_requests, "source_attempts": source_attempts,
+            "live_source_verified": live_source_verified}
 
 
 def fetch(route: str, query: str, *, policy_path=None, opener=None, retries=MAX_RETRIES, now=None, use_cache=True):

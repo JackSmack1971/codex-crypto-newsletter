@@ -89,37 +89,84 @@ def _build(run_date: str, fixture_path: Path | None, fixture: dict[str, Any], fi
         observations.append(row)
         provenance.append(item["provenance"])
     observations.sort(key=lambda row: json.dumps(row, sort_keys=True, separators=(",", ":")))
-    live_verified = mode == "live-rest" and bool(provenance) and all(p["live_source_verified"] for p in provenance)
+    source_attempts = adapter.get("source_attempts", [])
+    live_verified = bool(
+        mode == "live-rest" and adapter.get("mode") == "live-rest" and
+        adapter.get("live_source_verified") is True and adapter.get("request_count", 0) > 0 and
+        source_attempts and all(attempt.get("status") == "VALIDATED" and
+                                attempt.get("request_count", 0) > 0 for attempt in source_attempts) and
+        provenance and all(item.get("source_status") == "LIVE_RETRIEVED" and
+                           item.get("validation") == "PASS" and
+                           item.get("request_count", 0) > 0 and
+                           item.get("live_source_verified") is True for item in provenance)
+    )
+    provider_ids = sorted({item.get("source_provider") for item in source_attempts + provenance
+                           if isinstance(item.get("source_provider"), str)})
+    source_records = []
+    if mode == "replay":
+        if provenance:
+            accessed_utc = max(item["retrieved_at"] for item in provenance)
+        else:
+            accessed_utc = f"{run_date}T23:59:59Z"
+        source_records.append({"id": "local-replay", "label": "Declared local replay fixture",
+            "url": "https://example.invalid/local-replay", "accessed_utc": accessed_utc,
+            "artifact_keys": ["market", "screening"], "readiness": "READY" if provenance else "DEGRADED",
+            "evidence_quality": "SIMULATED_REPLAY", "live_source_verified": False,
+            "source_status": "SIMULATED_REPLAY"})
+    else:
+        for provider in provider_ids:
+            attempts = [item for item in source_attempts if item.get("source_provider") == provider]
+            matching = [item for item in provenance if item.get("source_provider") == provider]
+            provider_validated = bool(
+                attempts and matching and all(item.get("status") == "VALIDATED" and
+                                              item.get("request_count", 0) > 0 for item in attempts) and
+                all(item.get("source_status") == "LIVE_RETRIEVED" and item.get("validation") == "PASS" and
+                    item.get("request_count", 0) > 0 and item.get("live_source_verified") is True
+                    for item in matching)
+            )
+            provider_partial = bool(matching and any(item.get("status") != "VALIDATED" for item in attempts))
+            attempted_utc = max(item["attempted_at"] for item in attempts)
+            accessed_utc = max(item["retrieved_at"] for item in matching) if matching else None
+            host = next((item.get("endpoint_host") for item in attempts if item.get("endpoint_host")), "example.invalid")
+            source_records.append({"id": provider, "label": provider, "url": f"https://{host}/",
+                "accessed_utc": accessed_utc, "attempted_utc": attempted_utc,
+                "attempted_operations": sorted(item["operation"] for item in attempts),
+                "artifact_keys": ["market", "screening"],
+                "readiness": "READY" if provider_validated else "PARTIAL" if provider_partial else "DEGRADED",
+                "evidence_quality": "LIVE_RETRIEVAL_PROVIDER_CLAIMS" if provider_validated else
+                    "PARTIAL_LIVE_RETRIEVAL" if provider_partial else "NO_USABLE_LIVE_OBSERVATIONS",
+                "live_source_verified": provider_validated,
+                "source_status": "VALIDATED" if provider_validated else "PARTIAL" if provider_partial else "UNAVAILABLE",
+                "attempt_statuses": [item["status"] for item in attempts]})
     source_readiness = {"status": "PARTIAL" if observations and adapter["failures"] else "READY" if observations else "DEGRADED", "mode": mode,
         "successful_observations": len(observations), "failed_operations": len(adapter["failures"]),
         "live_source_verified": live_verified,
-        "evidence_quality": "LIVE_RETRIEVAL_PROVIDER_CLAIMS" if live_verified else "SIMULATED_REPLAY" if mode == "replay" else "NO_USABLE_LIVE_OBSERVATIONS",
+        "evidence_quality": "SIMULATED_REPLAY" if mode == "replay" else
+            "LIVE_RETRIEVAL_PROVIDER_CLAIMS" if live_verified else
+            "PARTIAL_LIVE_RETRIEVAL" if observations else "NO_USABLE_LIVE_OBSERVATIONS",
+        "source_attempts": source_attempts,
         "failures": adapter["failures"]}
-    source_records = []
-    for provider in (["local-replay"] if mode == "replay" and provenance else sorted({p["source_provider"] for p in provenance})):
-        matching = provenance if mode == "replay" else [p for p in provenance if p["source_provider"] == provider]
-        if mode == "replay":
-            sid, label, url = "local-replay", "Declared local replay fixture", "https://example.invalid/local-replay"
-        else:
-            sid = provider
-            host = matching[0].get("endpoint_host", "example.invalid")
-            label, url = provider, f"https://{host}/"
-        source_records.append({"id": sid, "label": label, "url": url,
-            "accessed_utc": matching[0]["retrieved_at"], "artifact_keys": ["market", "screening"],
-            "readiness": source_readiness["status"], "evidence_quality": source_readiness["evidence_quality"],
-            "live_source_verified": mode == "live-rest"})
-    sources = source_records or [{"id": "local-replay", "label": "Declared local replay fixture",
-        "url": "https://example.invalid/local-replay", "accessed_utc": f"{run_date}T23:59:59Z",
-        "artifact_keys": ["market", "screening"], "readiness": "DEGRADED",
-        "evidence_quality": "SIMULATED_REPLAY", "live_source_verified": False}]
+    for source in source_records:
+        source["readiness"] = source_readiness["status"] if mode == "replay" else source["readiness"]
+    sources = source_records
     market_rows = []
     for row in observations:
         raw = row.get("raw", row)
         if not isinstance(raw, dict):
             raise OrchestrationError("replayed observation raw value must be an object")
         market_rows.append(raw)
-    market = fixture.get("market", {"snapshot_at": f"{run_date}T23:59:59Z", "regime": "Fixture replay; market characterization limited to supplied observations.",
-                                      "observation_count": len(observations)})
+    if mode == "replay":
+        market_snapshot_at = max((row.get("retrieved_at") for row in observations if row.get("retrieved_at")),
+                                 default=f"{run_date}T23:59:59Z")
+        market_regime = "Declared local replay; market characterization limited to supplied observations."
+    elif observations:
+        market_snapshot_at = max(row.get("retrieved_at") for row in observations if row.get("retrieved_at"))
+        market_regime = "Live REST retrieval returned observations; market characterization is limited to provider claims and retrieval-time data."
+    else:
+        market_snapshot_at = None
+        market_regime = "Live REST acquisition was attempted; no usable observations were returned."
+    market = fixture.get("market", {"snapshot_at": market_snapshot_at, "regime": market_regime,
+                                      "observation_count": len(observations), "source_readiness": source_readiness})
     universe = universe_builder.build_universe(market_rows, snapshot_date=run_date)
     histories = fixture.get("history", {})
     # Accept ticker, address, network:address, or derived asset id keys.
@@ -187,15 +234,34 @@ def _build(run_date: str, fixture_path: Path | None, fixture: dict[str, Any], fi
     artifacts["committee"] = _write_json(directory, "committee.json", committee)
     artifacts["watchlist"] = _write_json(directory, "watchlist.json", {"as_of": run_date, "window_days": 7, "ranked_watchlist": []})
     artifacts["accountability"] = _write_json(directory, "accountability.json", {"status": "NOT_REPORTABLE", "reason": "no authorized publication ledger was supplied"})
+    retrieval_occurred = adapter.get("request_count", 0) > 0
+    if mode == "replay":
+        acquisition_disclosure = "No live acquisition occurred; observations came from the declared local replay fixture."
+    elif retrieval_occurred:
+        acquisition_disclosure = (f"Live REST acquisition occurred ({adapter['request_count']} HTTP request(s)); "
+                                  f"{len(observations)} observation(s) passed structural and identity validation. "
+                                  "Provider claims were not independently corroborated.")
+    else:
+        acquisition_disclosure = "Live REST acquisition was requested, but no HTTP request reached a provider."
     artifacts["methodology"] = _write_json(directory, "methodology.json", {"mode": mode, "fixture_sha256": fixture_hash,
-        "limitations": ["No live acquisition, Codex model, MCP, publication, or trade execution occurred.",
-                        "All nine research desk results are incomplete because this slice does not execute native specialist research."]})
+        "source_readiness": source_readiness, "acquisition_disclosure": acquisition_disclosure,
+        "limitations": [acquisition_disclosure,
+                        "All nine research desk results are incomplete because this slice does not execute native specialist research.",
+                        "Codex models, MCP tools, publication, and trade execution were not used."]})
     artifacts["desks"] = []
     for files in desk_files:
         artifacts["desks"].extend(files)
 
+    if mode == "replay":
+        edition_regime = "Declared local replay; incomplete research; no current market claims."
+    elif observations and adapter["failures"]:
+        edition_regime = "Live REST retrieval was partial; provider claims are not independently corroborated; research remains incomplete."
+    elif observations:
+        edition_regime = "Live REST observations were retrieved and structurally validated; provider claims are not independently corroborated; research remains incomplete."
+    else:
+        edition_regime = "Live REST acquisition was attempted but returned no usable observations; research remains incomplete."
     manifest = {"edition": {"date": run_date, "cutoff_utc": f"{run_date}T23:59:59Z", "status": "draft",
-                             "regime": "Declared local replay; incomplete research; no current market claims."},
+                             "regime": edition_regime},
                 "sources": sources,
                 "artifacts": {key: (value["path"] if key != "desks" else [x["path"] for x in value]) for key, value in artifacts.items() if key != "observations" and key != "universe" and key != "research"}}
     # Existing newsletter.assemble requires the daily controller's v1 artifact keys.

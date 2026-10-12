@@ -6,6 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+from urllib.error import URLError
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -16,6 +17,9 @@ import newsletter  # noqa: E402
 
 class DailyOrchestratorTests(unittest.TestCase):
     def setUp(self):
+        daily_orchestrator.research_sources._CACHE.clear()
+        daily_orchestrator.research_sources._FAILURES.clear()
+        daily_orchestrator.research_sources._OPEN_UNTIL.clear()
         self.temp = tempfile.TemporaryDirectory(dir=ROOT)
         self.base = Path(self.temp.name)
         self.fixture = self.base / "replay.json"
@@ -138,6 +142,85 @@ class DailyOrchestratorTests(unittest.TestCase):
         snapshot = json.loads((self.out / "source-snapshot.json").read_text(encoding="utf-8"))
         self.assertEqual("LIVE_RETRIEVAL_PROVIDER_CLAIMS", snapshot["readiness"]["evidence_quality"])
         self.assertTrue(json.loads((self.out / "screening.json").read_text(encoding="utf-8"))["source_readiness"]["live_source_verified"])
+        methodology = json.loads((self.out / "methodology.json").read_text(encoding="utf-8"))
+        self.assertIn("Live REST acquisition occurred", methodology["acquisition_disclosure"])
+        self.assertNotIn("No live acquisition occurred", methodology["acquisition_disclosure"])
+        manifest = json.loads((self.out / "manifest.json").read_text(encoding="utf-8"))
+        self.assertIn("Live REST observations were retrieved", manifest["edition"]["regime"])
+
+    def test_partial_live_acquisition_does_not_claim_complete_verification(self):
+        class Response:
+            status = 200
+            def __init__(self, body): self.body = body
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+            def geturl(self): return "https://api.dexscreener.com/latest/dex/search?q=TEST"
+            def read(self, n): return self.body[:n]
+        class Opener:
+            def __init__(self):
+                self.responses = [
+                    Response(b'{"pairs":[{"chainId":"base","baseToken":{"address":"0xabc"},"priceUsd":"1","marketCap":5000000,"volume":{"h24":1000000},"liquidity":{"usd":500000}}]}'),
+                    Response(b'{"pairs":[]}'),
+                ]
+            def open(self, request, timeout): return self.responses.pop(0)
+
+        daily_orchestrator.run("2026-10-11", None, self.out, mode="live-rest",
+            requests=[{"route": "dex-pair-search", "query": "TEST"},
+                      {"route": "dex-pair-search", "query": "NO-MATCH"}],
+            authorized=True, opener=Opener())
+        snapshot = json.loads((self.out / "source-snapshot.json").read_text(encoding="utf-8"))
+        self.assertEqual("PARTIAL", snapshot["readiness"]["status"])
+        self.assertFalse(snapshot["live_source_verified"])
+        self.assertEqual(["VALIDATED", "UNAVAILABLE"],
+                         [item["status"] for item in snapshot["readiness"]["source_attempts"]])
+        packet = json.loads((self.out / "packet.json").read_text(encoding="utf-8"))
+        self.assertEqual("PARTIAL", packet["sources"][0]["source_status"])
+        self.assertFalse(packet["sources"][0]["live_source_verified"])
+
+    def test_failed_live_acquisition_preserves_unavailable_provider_without_replay_attribution(self):
+        class Opener:
+            def open(self, request, timeout): raise URLError("unavailable")
+
+        daily_orchestrator.run("2026-10-11", None, self.out, mode="live-rest",
+            requests=[{"route": "dex-pair-search", "query": "TEST"}], authorized=True, opener=Opener())
+        snapshot = json.loads((self.out / "source-snapshot.json").read_text(encoding="utf-8"))
+        self.assertFalse(snapshot["live_source_verified"])
+        self.assertEqual(1, snapshot["request_count"])
+        packet = json.loads((self.out / "packet.json").read_text(encoding="utf-8"))
+        self.assertEqual(1, len(packet["sources"]))
+        source = packet["sources"][0]
+        self.assertEqual("dexscreener-market-data", source["id"])
+        self.assertEqual("UNAVAILABLE", source["source_status"])
+        self.assertIsNone(source["accessed_utc"])
+        self.assertRegex(source["attempted_utc"], r"^20\d\d-")
+        self.assertNotEqual("local-replay", source["id"])
+        self.assertIn("no usable observations", packet["edition"]["regime"])
+        market = json.loads((self.out / "market.json").read_text(encoding="utf-8"))
+        self.assertIsNone(market["snapshot_at"])
+        self.assertIn("Live REST acquisition was attempted", market["regime"])
+        methodology = json.loads((self.out / "methodology.json").read_text(encoding="utf-8"))
+        self.assertIn("Live REST acquisition occurred", methodology["acquisition_disclosure"])
+        self.assertIn("0 observation(s)", methodology["acquisition_disclosure"])
+
+    def test_unverified_live_provider_response_does_not_set_verification_flag(self):
+        class Response:
+            status = 200
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+            def geturl(self): return "https://api.dexscreener.com/latest/dex/search?q=TEST"
+            def read(self, n): return b'{"pairs":[{"chainId":"base","baseToken":{},"priceUsd":"1"}]}'[:n]
+        class Opener:
+            def open(self, request, timeout): return Response()
+
+        daily_orchestrator.run("2026-10-11", None, self.out, mode="live-rest",
+            requests=[{"route": "dex-pair-search", "query": "TEST"}], authorized=True, opener=Opener())
+        snapshot = json.loads((self.out / "source-snapshot.json").read_text(encoding="utf-8"))
+        self.assertEqual([], json.loads((self.out / "source-provenance.json").read_text(encoding="utf-8")))
+        self.assertFalse(snapshot["live_source_verified"])
+        self.assertEqual("FAILED", snapshot["readiness"]["source_attempts"][0]["status"])
+        source = json.loads((self.out / "packet.json").read_text(encoding="utf-8"))["sources"][0]
+        self.assertEqual("UNAVAILABLE", source["source_status"])
+        self.assertEqual("dexscreener-market-data", source["id"])
 
     def test_cli_requires_live_rest_opt_in_and_blocks_mcp(self):
         with patch("sys.stderr", new_callable=__import__("io").StringIO):
