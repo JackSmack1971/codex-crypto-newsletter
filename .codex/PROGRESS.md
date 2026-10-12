@@ -18,6 +18,13 @@
 
 The offline control surface acceptance path is implemented and tested. The newly approved CoinGecko and DexPaprika sources are configured for zero-cost reads only; paid operations and external publication remain disabled. No model launch or market/news retrieval has been performed in this iteration.
 
+## Iteration 4 — CP-001A deterministic daily replay orchestrator
+
+- **Criterion:** Generate a controller-compatible draft edition from a declared local replay fixture in one command, with explicit no-pick/degraded outcomes and traceable stage/artifact provenance.
+- **Result:** Added `tools/daily_orchestrator.py`. It runs existing source replay validation, universe construction, screen, nine incomplete desk handoffs, committee decision, and newsletter assembly/validation/rendering. Outputs are staged transactionally into a new or empty project-local directory. `run-manifest.json` records stage status, declared inputs, outputs, provenance, hashes, and disabled external effects. Empty input preserves explicit degraded/NO PICK; generated committee evidence cannot qualify a pick. Native Codex agents and MCP calls are not simulated.
+- **Verification:** `python -m pytest tests/test_daily_orchestrator.py tests/test_daily_run.py tests/test_newsletter.py -q` — PASS, 26 tests. `python -m pytest -q --disable-warnings` — PASS, 113 tests. `python -m py_compile tools/daily_orchestrator.py tests/test_daily_orchestrator.py` — PASS. Actual command `python tools/daily_orchestrator.py --date 2026-10-11 --replay tests/fixtures/market-observations.json --output .codex/results/cp001a-run-verified` — exit 0, `DEGRADED_NO_PICK`; existing `daily_run.py` consumed its manifest and wrote a valid packet/edition with expected `DEGRADED` status. `git diff --check` — PASS (line-ending warnings only).
+- **Limits:** Live acquisition, native agent research, MCP research, live daily production, scheduling, trades, and publication remain disabled and unaccepted. Final review was performed from the Git diff/status; untracked generated acceptance artifacts are retained under `.codex/results/cp001a-*`.
+
 ## Iteration 3 — project MCP source setup
 
 - **Criterion:** Configure approved, project-level, read-only crypto data MCPs without adding credentials, paid tools, or write-capable tools.

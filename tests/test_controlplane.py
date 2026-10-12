@@ -2,6 +2,7 @@ import contextlib
 import copy
 import io
 import json
+import re
 import tomllib
 import subprocess
 import sys
@@ -79,6 +80,40 @@ class ControlPlaneTests(unittest.TestCase):
         self.assertIn("references/editorial-contract.md", manifest)
         self.assertIn("references/release-checklist.md", manifest)
         self.assertNotIn("references/editorial-and-release.md", manifest)
+
+    def test_instruction_chain_and_role_separation_references_resolve(self):
+        chain = controlplane._instruction_chain(ROOT)
+        self.assertIn("AGENTS.md", chain)
+        self.assertNotIn("examples/synthetic-workspace/AGENTS.md", chain)
+        nested_chain = controlplane._instruction_chain(ROOT / "examples/synthetic-workspace")
+        self.assertIn("AGENTS.md", nested_chain)
+        self.assertIn("examples/synthetic-workspace/AGENTS.md", nested_chain)
+
+        root_instructions = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        role_contract = (ROOT / "docs/agent-roles.md").read_text(encoding="utf-8")
+        self.assertIn("docs/agent-roles.md", root_instructions)
+        for reference in (
+            "control-plane-audit.md",
+            ".codex/IMPLEMENTATION_PLAN.md",
+            ".codex/PROGRESS.md",
+            "README.md",
+        ):
+            self.assertTrue((ROOT / reference).is_file(), reference)
+
+        # Newsletter operations remain discoverable in versioned runtime docs,
+        # but are not injected as the engineering agent's daily procedure.
+        self.assertIn("crypto-daily", role_contract)
+        self.assertIn("edition-contract.md", role_contract)
+        self.assertNotIn("python tools/newsletter.py assemble", root_instructions)
+        self.assertNotIn("NO PICK", root_instructions)
+        self.assertFalse((ROOT / ".agents/skills/crypto-daily/AGENTS.md").exists())
+
+        for document in (ROOT / "AGENTS.md", ROOT / "docs/agent-roles.md"):
+            for target in re.findall(r"\[[^\]]+\]\(([^)]+)\)", document.read_text(encoding="utf-8")):
+                if target.startswith(("https://", "http://", "#")):
+                    continue
+                path = target.split("#", 1)[0]
+                self.assertTrue((document.parent / path).resolve().is_file(), f"{document}: {target}")
 
     def test_unverified_coinpaprika_mcp_is_disabled_in_runtime_and_policy(self):
         mcp_config = tomllib.loads((ROOT / ".codex" / "config.toml").read_text(encoding="utf-8"))
