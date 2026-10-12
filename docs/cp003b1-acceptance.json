@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "milestone": "CP-003B.1",
+  "status": "CP-003B.1 ACCEPTED",
+  "acceptance_states": {
+    "implemented": "PASS",
+    "tested_offline": "PASS",
+    "independent_review_cleared": "PASS",
+    "tested_live": "UNVERIFIED"
+  },
+  "independent_review": {
+    "previous_result": "CLEAR for commit 2e351eb",
+    "current_result": "CLEAR",
+    "scope": "Follow-up for post-turn malformed notifications and missing enclosing-turn success evidence.",
+    "blocking_findings": 0
+  },
+  "live_acceptance": {
+    "milestone": "CP-003B.2",
+    "status": "NOT_RUN",
+    "reason": "No separate operator authorization for model usage and network access was given."
+  },
+  "runtime_schema": {
+    "product": "Codex App Server",
+    "codex_cli_version": "0.162.1",
+    "schema_generation_command": "codex app-server generate-json-schema --out <temporary-directory>",
+    "notification_contract": [
+      "ItemStartedNotification: threadId, turnId, item",
+      "ItemCompletedNotification: threadId, turnId, item",
+      "TurnStartedNotification: threadId, turn.id",
+      "TurnCompletedNotification: threadId, turn.id, turn.status, turn.items",
+      "McpToolCallThreadItem: id, server, tool, arguments, status, type; optional result, error, readOnlyHint"
+    ],
+    "status_enum": ["inProgress", "completed", "failed"],
+    "schema_digest": "sha256:2c39762a21f3649c91405be15dd04998e122e67e7275613268dbbf2b1257b31e",
+    "schema_digest_method": "SHA-256 over sorted relative schema paths concatenated with each file SHA-256; 317 generated files.",
+    "schema_digest_note": "Digest identifies the generated schema bundle for this local inspection."
+  },
+  "correlation_mapping": {
+    "item_id": {"source": "item.id", "classification": "directly_observed", "requirement": "same id on started and completed"},
+    "server_tool": {"source": "item.server and item.tool", "classification": "directly_observed", "requirement": "exact approved provider/tool"},
+    "arguments": {"source": "item.arguments", "classification": "directly_observed", "requirement": "exact request match; sensitive keys denied before prompt"},
+    "thread_id": {"source": "thread/start result and notification threadId fields", "classification": "directly_observed_and_cross_checked"},
+    "turn_id": {"source": "turn/start result and notification turnId/turn.id fields", "classification": "directly_observed_and_cross_checked"},
+    "request_id": {"source": "adapter UUID", "classification": "locally_generated; not a protocol field"},
+    "execution_id": {"source": "adapter UUID", "classification": "locally_generated; not a protocol field"},
+    "provider_data_accuracy_or_freshness": {"source": null, "classification": "unavailable_from_lifecycle_schema"}
+  },
+  "evidence_integrity": {
+    "retained_events": ["thread/started", "turn/started", "item/started", "item/completed", "turn/completed", "other protocol notifications received during RPC"],
+    "redaction": "Sensitive fields are dropped before persistence and their paths are listed in redaction.dropped_fields.",
+    "hashing": "SHA-256 linked chain over redacted event records; chain proves sanitized-record integrity only.",
+    "persistence": "CLI output uses atomic replacement for success and failure records."
+  },
+  "offline_tests": [
+    {"command": "python -m pytest tests/test_native_mcp.py tests/test_research_sources.py tests/test_daily_orchestrator.py -q", "result": "PASS", "tests": 59},
+    {"command": "python -m pytest -q", "result": "PASS", "tests": 152},
+    {"command": "git diff --check", "result": "PASS"}
+  ],
+  "coverage": [
+    "Mock App Server initialization, initialized notification, thread/start, turn/start, event consumption, and completion",
+    "Malformed array/string/number/null event after turn/start retained as structured UNVERIFIED failure",
+    "Actual JSON-RPC transport unit path for response ID matching, notification queuing, and malformed array/string/number/null rejection",
+    "Mock RPC failure, malformed thread response, timeout, and cleanup failure retain versioned records; combined timeout plus cleanup failure preserves timeout as primary reason",
+    "Missing/duplicate/conflicting lifecycle, missing identifiers, unrelated thread/turn, and mismatched tool identity",
+    "Unauthorized provider/tool, read-only annotation, request-argument mismatch, and sensitive argument rejection",
+    "Failed tool, interrupted/failed enclosing turn, malformed provider response, model-summary rejection, and observation normalization",
+    "Credential redaction, redaction markers, linked event hashes, and tamper detection",
+    "Absent enclosing-turn success defaults false and keeps validated tool observations PARTIAL"
+  ],
+  "unverified": [
+    "No genuine Codex model session or provider call was executed.",
+    "Provider data accuracy, freshness, and independent corroboration are not established by App Server lifecycle events.",
+    "A live runtime must still establish actual MCP invocation and end-to-end provenance for CP-003B.2."
+  ]
+}
