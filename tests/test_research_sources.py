@@ -198,6 +198,37 @@ class ResearchSourcesTests(unittest.TestCase):
         self.assertEqual('BLOCKED', mcp['status'])
         self.assertFalse(mcp['observations'])
 
+    def test_native_mcp_result_enters_cp003a_provenance_only_after_validation(self):
+        def executor(**kwargs):
+            return {"status": "VERIFIED", "request_id": "req-1", "thread_id": "thread-1", "turn_id": "turn-1",
+                "records": [{"call_id": "call-1", "content_sha256": "payload-hash"}],
+                "observations": [{"provider": "dexpaprika-dex-data", "token_id": "0xabc", "chain": "ethereum", "price": 1.2}],
+                "execution_record": {"schema_version": 1, "request_id": "req-1"}, "events": [{"sha256": "event-hash"}]}
+        with patch('native_mcp.execute', side_effect=executor):
+            result = rs.execute('live-mcp', authorize_model_and_network=True, mcp_provider='dexpaprika',
+                mcp_tool='getTokenMultiPrices', mcp_arguments={'network': 'ethereum'})
+        self.assertEqual('OK', result['status'])
+        self.assertTrue(result['live_source_verified'])
+        provenance = result['observations'][0]['provenance']
+        self.assertEqual('dexpaprika-dex-data', provenance['source_provider'])
+        self.assertEqual('call-1', provenance['mcp_call_id'])
+        self.assertEqual('thread-1', provenance['codex_thread_id'])
+        self.assertEqual('payload-hash', provenance['content_sha256'])
+        self.assertEqual(1, result['native_execution_record']['schema_version'])
+
+    def test_native_mcp_tool_output_survives_when_enclosing_turn_fails_as_partial(self):
+        def executor(**kwargs):
+            return {"status": "VERIFIED", "turn_success": False, "request_id": "req", "thread_id": "thread", "turn_id": "turn",
+                "records": [{"call_id": "call", "content_sha256": "hash"}],
+                "observations": [{"provider": "dexpaprika-dex-data", "token_id": "0xabc", "chain": "ethereum", "price": 1}],
+                "execution_record": {"schema_version": 1}, "events": [{"sha256": "event"}]}
+        with patch('native_mcp.execute', side_effect=executor):
+            result = rs.execute('live-mcp', authorize_model_and_network=True, mcp_provider='dexpaprika',
+                mcp_tool='getTokenMultiPrices', mcp_arguments={'network': 'ethereum'})
+        self.assertEqual('PARTIAL', result['status'])
+        self.assertTrue(result['live_source_verified'])
+        self.assertEqual('TURN_INCOMPLETE', result['failures'][0]['status'])
+
     def test_adapter_drops_sensitive_provider_fields_before_artifact(self):
         body = b'{"pairs":[{"chainId":"base","baseToken":{"address":"0xabc"},"email":"private@example.test","api_key":"secret"}]}'
         result = rs.execute('live-rest', requests=[{'route': 'dex-pair-search', 'query': 'sanitize'}],

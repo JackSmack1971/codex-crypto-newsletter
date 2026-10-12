@@ -164,16 +164,53 @@ def _source_rows(result, route):
 
 
 def execute(mode, *, replay_path=None, requests=None, authorized=False, policy_path=None, opener=None,
-            max_requests=MAX_ADAPTER_REQUESTS, now=None):
+            max_requests=MAX_ADAPTER_REQUESTS, now=None, authorize_model_and_network=False,
+            mcp_provider=None, mcp_tool=None, mcp_arguments=None):
     """Execute the research adapter contract. Replay is offline; REST is explicitly authorized.
 
-    MCP is intentionally blocked: this adapter has no verified native, deterministic
-    tool-call mechanism that avoids an unapproved model invocation.
+    MCP uses the Codex App Server only after explicit model/network authorization;
+    event evidence is validated by native_mcp before it can enter this contract.
     """
     if mode not in ("replay", "live-rest", "live-mcp"):
         raise ValueError("unknown research execution mode")
     if mode == "live-mcp":
-        return {"mode": mode, "status": "BLOCKED", "reason": "native Codex MCP invocation is not verified for this adapter", "observations": [], "failures": []}
+        if authorize_model_and_network is not True:
+            return {"mode": mode, "status": "BLOCKED", "reason": "explicit model and network authorization required", "observations": [], "failures": [], "live_source_verified": False}
+        if requests or replay_path is not None or not isinstance(mcp_arguments, dict):
+            raise ValueError("live-mcp requires one bounded server/tool/arguments request")
+        from native_mcp import execute as run_native_mcp
+        result = run_native_mcp(provider=mcp_provider, tool=mcp_tool, arguments=mcp_arguments, authorized=True)
+        observations, provenance = [], []
+        retrieved_at = datetime.now(timezone.utc).isoformat()
+        if result.get("status") == "VERIFIED":
+            for index, row in enumerate(result.get("observations", [])):
+                identity = _canonical_identity(row)
+                normalized = _sanitize_payload(dict(row))
+                observations.append({"observation": normalized, "provenance": {
+                    "canonical_asset_identity": identity, "source_provider": PROVIDERS[mcp_provider]["source"],
+                    "operation": "read", "endpoint_or_tool": f"{mcp_provider}/{mcp_tool}",
+                    "retrieved_at": retrieved_at, "provider_observed_at": row.get("native_observation_time"),
+                    "source_status": "LIVE_RETRIEVED", "schema_status": "VALIDATED",
+                    "content_sha256": result["records"][0]["content_sha256"],
+                    "normalized_artifact_sha256": _digest(normalized), "request_count": 1,
+                    "quota_cost": "zero_cost_configured; provider quota/cost unverified", "validation": "PASS",
+                    "research_usability": "USABLE_WITH_PROVIDER_CLAIM_LIMITS", "live_source_verified": True,
+                    "codex_request_id": result["request_id"], "codex_thread_id": result.get("thread_id"),
+                    "codex_turn_id": result.get("turn_id"), "mcp_call_id": result["records"][0]["call_id"],
+                    "observation_index": index}})
+        record = result.get("execution_record")
+        turn_success = result.get("turn_success", True)
+        failures = [] if observations and turn_success else ([{"status": "TURN_INCOMPLETE", "reason": "MCP tool completed and validated; enclosing Codex turn did not complete successfully"}] if observations else [{"status": result.get("status"), "reason": result.get("reason")}])
+        return {"mode": mode, "status": "OK" if observations and turn_success else "PARTIAL" if observations else result.get("status", "UNVERIFIED"),
+                "reason": result.get("reason"), "observations": observations,
+                "turn_success": turn_success, "request_count": 1 if observations else 0, "source_attempts": [{"provider_id": mcp_provider,
+                    "source_provider": PROVIDERS.get(mcp_provider, {}).get("source"), "operation": mcp_tool,
+                    "endpoint_host": {"coingecko": "mcp.api.coingecko.com", "dexpaprika": "mcp.dexpaprika.com"}.get(mcp_provider),
+                    "attempted_at": retrieved_at, "status": "VALIDATED" if observations else result.get("status", "UNVERIFIED"), "request_count": 1 if observations else 0}],
+                "failures": failures, "live_source_verified": bool(observations), "native_execution_record": record,
+                "native_event_digest": _digest(result.get("events", [])) if result.get("events") else None}
+    if authorize_model_and_network or mcp_provider or mcp_tool or mcp_arguments is not None:
+        raise ValueError("MCP authorization and request arguments apply only to live-mcp")
     if isinstance(max_requests, bool) or not isinstance(max_requests, int) or not 0 <= max_requests <= MAX_ADAPTER_REQUESTS:
         raise ValueError("request budget must be between 0 and 4")
     if mode == "replay":

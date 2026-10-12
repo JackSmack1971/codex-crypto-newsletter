@@ -78,9 +78,12 @@ def _read_fixture(path: Path) -> tuple[dict[str, Any], bytes]:
 
 def _build(run_date: str, fixture_path: Path | None, fixture: dict[str, Any], fixture_hash: str,
            directory: Path, *, mode: str, requests: list[dict[str, str]] | None = None,
-           authorized: bool = False, opener=None) -> dict[str, Any]:
+           authorized: bool = False, opener=None, authorize_model_and_network: bool = False,
+           mcp_provider: str | None = None, mcp_tool: str | None = None, mcp_arguments: dict[str, Any] | None = None) -> dict[str, Any]:
     adapter = research_sources.execute(mode, replay_path=fixture_path if mode == "replay" else None,
-        requests=requests, authorized=authorized, opener=opener)
+        requests=requests, authorized=authorized, opener=opener,
+        authorize_model_and_network=authorize_model_and_network, mcp_provider=mcp_provider,
+        mcp_tool=mcp_tool, mcp_arguments=mcp_arguments)
     if adapter["status"] == "BLOCKED":
         raise OrchestrationError("live-mcp is blocked until a supported native MCP invocation is verified")
     observations, provenance = [], []
@@ -91,7 +94,7 @@ def _build(run_date: str, fixture_path: Path | None, fixture: dict[str, Any], fi
     observations.sort(key=lambda row: json.dumps(row, sort_keys=True, separators=(",", ":")))
     source_attempts = adapter.get("source_attempts", [])
     live_verified = bool(
-        mode == "live-rest" and adapter.get("mode") == "live-rest" and
+        mode in ("live-rest", "live-mcp") and adapter.get("mode") == mode and
         adapter.get("live_source_verified") is True and adapter.get("request_count", 0) > 0 and
         source_attempts and all(attempt.get("status") == "VALIDATED" and
                                 attempt.get("request_count", 0) > 0 for attempt in source_attempts) and
@@ -227,6 +230,8 @@ def _build(run_date: str, fixture_path: Path | None, fixture: dict[str, Any], fi
         "observations_sha256": research_sources._digest(observations),
         "provenance_sha256": research_sources._digest(provenance),
         "request_count": adapter.get("request_count", 0), "live_source_verified": live_verified})
+    if adapter.get("native_execution_record"):
+        artifacts["native_mcp_execution"] = _write_json(directory, "native-mcp-execution.json", adapter["native_execution_record"])
     artifacts["market"] = _write_json(directory, "market.json", market)
     artifacts["universe"] = _write_json(directory, "universe.json", universe)
     artifacts["screening"] = _write_json(directory, "screening.json", screened)
@@ -237,17 +242,23 @@ def _build(run_date: str, fixture_path: Path | None, fixture: dict[str, Any], fi
     retrieval_occurred = adapter.get("request_count", 0) > 0
     if mode == "replay":
         acquisition_disclosure = "No live acquisition occurred; observations came from the declared local replay fixture."
+    elif mode == "live-mcp" and retrieval_occurred:
+        acquisition_disclosure = (f"Native Codex MCP acquisition occurred through {mcp_provider}/{mcp_tool}; "
+                                  f"{len(observations)} observation(s) passed tool-result structure and asset-identity validation. "
+                                  f"Enclosing Codex turn success={adapter.get('turn_success')}; provider claims remain uncorroborated.")
     elif retrieval_occurred:
         acquisition_disclosure = (f"Live REST acquisition occurred ({adapter['request_count']} HTTP request(s)); "
                                   f"{len(observations)} observation(s) passed structural and identity validation. "
                                   "Provider claims were not independently corroborated.")
     else:
-        acquisition_disclosure = "Live REST acquisition was requested, but no HTTP request reached a provider."
+        acquisition_disclosure = ("Native Codex MCP request was requested, but no validated MCP result was accepted."
+                                  if mode == "live-mcp" else "Live REST acquisition was requested, but no HTTP request reached a provider.")
     artifacts["methodology"] = _write_json(directory, "methodology.json", {"mode": mode, "fixture_sha256": fixture_hash,
         "source_readiness": source_readiness, "acquisition_disclosure": acquisition_disclosure,
         "limitations": [acquisition_disclosure,
                         "All nine research desk results are incomplete because this slice does not execute native specialist research.",
-                        "Codex models, MCP tools, publication, and trade execution were not used."]})
+                        ("Codex model session and MCP invocation were used." if mode == "live-mcp" else "Codex models and MCP tools were not used."),
+                        "Publication and trade execution were not used."]})
     artifacts["desks"] = []
     for files in desk_files:
         artifacts["desks"].extend(files)
@@ -304,14 +315,16 @@ def _build(run_date: str, fixture_path: Path | None, fixture: dict[str, Any], fi
                     "inputs": {"replay_fixture": fixture_path.relative_to(ROOT).as_posix() if fixture_path else None, "sha256": fixture_hash},
                     "fixture_sha256": fixture_hash,
                     "source_readiness": source_readiness,
-                    "stages": stages, "artifacts": outputs, "external_effects": {"network": mode == "live-rest" and adapter.get("request_count", 0) > 0, "paid_models": False,
-                    "native_agents": False, "mcp": False, "trades": False, "scheduling": False, "publication": False}}
+                    "stages": stages, "artifacts": outputs, "external_effects": {"network": mode in ("live-rest", "live-mcp") and adapter.get("request_count", 0) > 0, "paid_models": mode == "live-mcp",
+                    "native_agents": False, "mcp": mode == "live-mcp" and adapter.get("request_count", 0) > 0, "trades": False, "scheduling": False, "publication": False}}
     _write_json(directory, "run-manifest.json", run_manifest)
     return run_manifest
 
 
 def run(run_date: str, fixture_path: Path | None, output_dir: Path, *, mode: str = "replay",
-        requests: list[dict[str, str]] | None = None, authorized: bool = False, opener=None) -> dict[str, Any]:
+        requests: list[dict[str, str]] | None = None, authorized: bool = False, opener=None,
+        authorize_model_and_network: bool = False, mcp_provider: str | None = None,
+        mcp_tool: str | None = None, mcp_arguments: dict[str, Any] | None = None) -> dict[str, Any]:
     try:
         date.fromisoformat(run_date)
     except ValueError as exc:
@@ -334,7 +347,9 @@ def run(run_date: str, fixture_path: Path | None, output_dir: Path, *, mode: str
     stage_dir = Path(tempfile.mkdtemp(prefix=f".{output_dir.name}.staging-", dir=output_dir.parent))
     try:
         result = _build(run_date, fixture_path, fixture, fixture_hash, stage_dir, mode=mode,
-                        requests=requests, authorized=authorized, opener=opener)
+                        requests=requests, authorized=authorized, opener=opener,
+                        authorize_model_and_network=authorize_model_and_network,
+                        mcp_provider=mcp_provider, mcp_tool=mcp_tool, mcp_arguments=mcp_arguments)
         if output_dir.exists():
             output_dir.rmdir()
         os.replace(stage_dir, output_dir)
@@ -350,6 +365,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--mode", choices=("replay", "live-rest", "live-mcp"), default="replay")
     parser.add_argument("--replay", type=Path, help="local JSON replay fixture (default mode)")
     parser.add_argument("--authorize-live-rest", action="store_true", help="explicitly authorize bounded REST reads")
+    parser.add_argument("--authorize-model-and-network", action="store_true", help="explicitly authorize a model-backed native MCP read")
+    parser.add_argument("--mcp-provider", choices=("coingecko", "dexpaprika"), help="approved MCP server")
+    parser.add_argument("--mcp-tool", help="tool name, checked against the provider allowlist")
+    parser.add_argument("--mcp-arguments", help="JSON object of arguments for one MCP tool call")
     parser.add_argument("--request", action="append", default=[], metavar="ROUTE=QUERY", help="fixed REST route/query; repeat within the four-operation cap")
     parser.add_argument("--output", required=True, type=Path, help="empty project-local run artifact directory")
     args = parser.parse_args(argv)
@@ -362,10 +381,18 @@ def main(argv: list[str] | None = None) -> int:
             requests.append({"route": route, "query": query})
         if args.mode == "live-rest" and not args.authorize_live_rest:
             raise OrchestrationError("live-rest requires --authorize-live-rest")
+        mcp_arguments = json.loads(args.mcp_arguments) if args.mcp_arguments else None
+        if args.mode == "live-mcp" and not args.authorize_model_and_network:
+            raise OrchestrationError("live-mcp requires --authorize-model-and-network")
+        if args.mode == "live-mcp" and (not args.mcp_provider or not args.mcp_tool or not isinstance(mcp_arguments, dict)):
+            raise OrchestrationError("live-mcp requires --mcp-provider, --mcp-tool, and a JSON object in --mcp-arguments")
+        if args.mode != "live-mcp" and (args.authorize_model_and_network or args.mcp_provider or args.mcp_tool or args.mcp_arguments):
+            raise OrchestrationError("MCP authorization and arguments apply only to live-mcp")
         if args.mode != "live-rest" and (args.authorize_live_rest or requests):
             raise OrchestrationError("REST authorization and requests apply only to live-rest")
         result = run(args.date, args.replay, args.output, mode=args.mode, requests=requests or None,
-                     authorized=args.authorize_live_rest)
+                     authorized=args.authorize_live_rest, authorize_model_and_network=args.authorize_model_and_network,
+                     mcp_provider=args.mcp_provider, mcp_tool=args.mcp_tool, mcp_arguments=mcp_arguments)
     except Exception as exc:
         print(json.dumps({"status": "FAILED", "error": str(exc)}), file=sys.stderr)
         return 2
