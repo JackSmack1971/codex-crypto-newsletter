@@ -1,5 +1,7 @@
 # Control-plane progress log
 
+> This is a chronological engineering record. Earlier entries retain their original scope and status as of their recorded iteration; they are not current product acceptance. The current product objective and MVP gates are in [`.codex/IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md) and [`docs/MVP_ROADMAP.md`](../docs/MVP_ROADMAP.md). CP-001 through CP-004 are supporting workstreams, not the product hierarchy.
+
 ## Iteration 1 — packet-to-edition slice
 
 - **Criterion:** Render a no-pick newsletter from a bounded local packet without source fetching or external publication.
@@ -52,3 +54,10 @@ The offline control surface acceptance path is implemented and tested. The newly
 - **Criterion:** Configure approved, project-level, read-only crypto data MCPs without adding credentials, paid tools, or write-capable tools.
 - **Result:** Added trusted-project Codex configuration for CoinGecko (`execute` only) and DexPaprika (market-data reads only). Added exact-host, zero-cost read entries to `.codex/source-policy.json`. CoinPaprika was not selected because its hosted tool schema says query rationales are logged for provider review. The listed hosted news endpoint returned HTTP 404 during MCP initialization and was not configured.
 - **Verification:** Offline suite passed (28 tests); Python compilation passed; doctor reported PASS; policy checks allowed the two approved hosts and denied an unapproved host and trade operation; `codex mcp list` and `codex mcp get --json` confirmed project-scoped server registration and tool allowlists. MCP initialization/tools-list metadata was inspected, but no market/news data tools were called and no live newsletter research was performed. Shared provider quotas apply; there is no project-enforced per-run call count. Git metadata is absent, so Git status/diff checks are unavailable.
+
+## Product acceptance update — MVP-1 (2026-10-12)
+
+- **Accepted scope:** Native active Codex CLI session authored and revised a complete 13-section newsletter from the saved fixture; native independent reviewer and newsletter editor reviewed that offline issue; deterministic structure, numerical fact check, provenance/hash/path validation passed; local Markdown saved for operator review.
+- **Evidence:** `.codex/results/native-mvp1-2026-10-11/acceptance-summary.md`, `review-findings.json`, `fact-check-report.json`, `codex-execution-metadata.json`, `metadata-path-validation.json`, `protected-content-comparison.json`, and `edition.md`. Root-based validation reports 37 references resolved, 13 sections, reviewer PASS results, and matching protected-content digests. Recorded targeted checks: `python -m pytest -q tests/test_newsletter.py tests/test_adversarial_review.py` — 17 passed.
+- **Limits:** Fixture replay only; no crypto market network requests, live MCP/provider research, or current market intelligence. The issue is NO PICK with an empty seven-day watchlist. Reviewer/editor completion is edition-specific and does not establish MVP-3 specialist research delegation and synthesis. Model ID, session ID, tokens, and cost are unknown; no separate model/API call was launched by the pipeline.
+- **Current product status:** MVP-1 editorial workflow accepted. MVP-2 live research, MVP-3 native specialist research delegation, and MVP-4 reliable daily production remain NOT ACCEPTED. Do not infer these milestones from prior CP tests or replay artifacts.

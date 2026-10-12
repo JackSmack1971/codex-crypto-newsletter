@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "research_reviewer": {
+    "role": "native independent-reviewer",
+    "scope": "raw fixture, saved packet/artifacts, final rendered draft; offline only",
+    "findings_initial": [
+      "No material factual/numerical contradiction; NO PICK and empty seven-day watchlist defensible.",
+      "Corrected WHAT\u2019S MOVING to distinguish provider fields from independently verified venue activity.",
+      "Corrected committee attribution to say it returned NO_PICK; clarified WATCH is not an approved pick."
+    ],
+    "final_result": "Confirmed shared contract-string caveat is accurate; no remaining factual or clarity issue.",
+    "blockers": []
+  },
+  "editorial_reviewer": {
+    "role": "native newsletter-editor",
+    "scope": "merged packet, artifact map, final rendered draft; offline only",
+    "findings_initial": [
+      "Confirmed 13 sections, readability, offline fixture disclosure, and complete empty seven-day watchlist.",
+      "Requested resolving artifact references for committee, risk, accountability, and watchlist; requested clarity about preserved original versus reviewed editorial input."
+    ],
+    "final_result": "Confirmed editorial.final.json is authoritative reviewed derivative; merged packet matches it; links resolve; no material blocker. Placeholder example.invalid source links are explicitly disclosed.",
+    "blockers": []
+  },
+  "reviewers_used_as_independent_quality_checks_only": true,
+  "committee_gate_note": "Offline native review findings do not retrofit committee runtime reviewer evidence; committee remains NO_PICK."
+}

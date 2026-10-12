@@ -1,0 +1,5 @@
+# These fixture/evidence bytes are covered by retained SHA-256 acceptance records.
+# Prevent checkout line-ending conversion from invalidating those recorded hashes.
+tests/fixtures/market-observations.json -text
+.codex/results/native-mvp1-2026-10-11/** -text whitespace=cr-at-eol
+docs/DOCUMENTATION_AUDIT.md whitespace=cr-at-eol

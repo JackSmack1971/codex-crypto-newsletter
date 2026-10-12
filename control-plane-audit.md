@@ -2,6 +2,8 @@ Codex Control Plane — Comprehensive Architecture & Implementation Audit
 =======================================================================
 
 October 11, 2026 | Artifact: `newsletter.zip` | Official Codex documentation and release history
+
+> **Historical engineering audit.** Findings below preserve the architecture and status observed when each entry was written. For current product responsibilities and MVP acceptance status, see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [docs/MVP_ROADMAP.md](docs/MVP_ROADMAP.md). CP-001 through CP-004 remain supporting workstreams; incomplete audit items are not product acceptance. Historical statements are not rewritten as completed capabilities.
 Executive assessment
 --------------------
 

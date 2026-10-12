@@ -1,13 +1,15 @@
 # Market data provider integration
 
+> Codex CLI is the research coordinator and synthesis engine. This document describes supporting Python acquisition/replay adapters and potential sources. Source configuration does not itself prove live retrieval, authorization for an operation, or output accuracy. Product acceptance gates are in [ARCHITECTURE.md](ARCHITECTURE.md) and [MVP_ROADMAP.md](MVP_ROADMAP.md).
+
 `tools/research_sources.py` contains a read-only provider registry, fixed REST routes, common observation envelope, bounded retrieval behavior, fixture replay, and the provider-neutral `execute(mode, ...)` adapter. Discovery routes are tagged `discovery`; the CoinPaprika ticker route is tagged `observation`. Search output is never automatically promoted into a verified asset identity. Normalization retains every original row and its provider payload, including duplicate or conflicting reports.
 
 ## Provider registry
 
 | Provider | State/interface | Capabilities | Authentication, fees, quota and health |
 |---|---|---|---|
-| CoinGecko | Active project MCP | market cap, price, volume, discovery | MCP configuration; zero-cost read configured; provider quota/terms and live health unverified |
-| DexPaprika | Active project MCP | pools, price, volume, liquidity, chain and contract identity | MCP configuration; zero-cost read configured; provider quota/terms and live health unverified |
+| CoinGecko | Project MCP configured | market cap, price, volume, discovery | Configuration does not establish invocation; provider quota/terms and live health unverified |
+| DexPaprika | Project MCP configured | pools, price, volume, liquidity, chain and contract identity | Configuration does not establish invocation; provider quota/terms and live health unverified |
 | CoinPaprika | Active fixed REST search and ticker routes; MCP remains disabled | discovery, price, market cap, volume, exchange | Public keyless routes; configured zero-cost reads; quota and live health unverified |
 | DexScreener | Active fixed REST pair search | price, volume, liquidity, exchange, chain and contract identity | Public route; configured zero-cost read; quota and live health unverified |
 | DefiLlama | Candidate, disabled | TVL/fees/prices data | Its official pricing page lists Open-plan data, but distinct API access at $300/month (1,000 requests/minute and 1M calls/month); no paid plan authorized: [pricing](https://docs.llama.fi/pro-api) |
@@ -17,7 +19,7 @@
 
 Registry `active` indicates an explicitly supported route/MCP integration, not proven live health. The four candidates remain disabled and have no authorized operation. `--execute` can only use fixed routes whose source and HTTPS host are allowed by `.codex/source-policy.json`; no arbitrary URLs, credentials, payment, or trading operations are exposed. The daily controller defaults to `replay`; `live-rest` requires both `--mode live-rest` and `--authorize-live-rest`, accepts only fixed route/query operations, and caps each run at four requests with retries disabled. Its source snapshot records per-observation identity, provider, route, timestamps, digests, validation, request count, and explicit uncertainty about quotas/cost. Replay is marked `SIMULATED_REPLAY` and never counts as live-source verification.
 
-`live-mcp` is currently `BLOCKED`. Codex CLI 0.162.1 exposes MCP as a client and an experimental app-server, but a deterministic direct tool invocation from this offline controller has not been verified; using it would require a model turn, which is outside this adapter's authorization. MCP configuration and health remain descriptive and unverified.
+The opt-in `live-mcp` adapter uses a Codex App Server model turn and requires its explicit authorization flag. Its protocol checks and offline tests do not establish live provider availability or market-data accuracy. No live call is established by the retained MVP-1 evidence; Codex still evaluates and writes the product issue in its active session.
 
 ## Retrieval and replay
 

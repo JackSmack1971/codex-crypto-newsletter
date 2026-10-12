@@ -1,5 +1,7 @@
 # Native research agents
 
+> This file specifies native Codex specialist role contracts and evidence expectations. Codex CLI's active session is the product coordinator, evidence evaluator, editor, and writer. Static agent files and simulated Python desk records are not evidence that native delegation occurred. Product acceptance levels are defined in [MVP_ROADMAP.md](MVP_ROADMAP.md).
+
 ## Runtime and configuration
 
 This project defines nine logical research desks: market-data, discovery, technicals, liquidity, on-chain, tokenomics, catalysts, risk, and falsification. Existing specialist agents implement market-data, on-chain, and risk; six desk-specific agents implement the remaining desks. The installed CLI observed for this slice is `codex-cli 0.162.1`; its feature list reports `multi_agent` as stable and enabled. The project config limits spawned agent threads to two at a time. Each role uses `sandbox_mode = "read-only"`; models are inherited from the parent session so this project does not pin a model or assume account availability.
@@ -20,7 +22,7 @@ The independent reviewer must be launched with only the original brief and the s
 
 ## Role contracts
 
-Every role file defines its responsibility, required input, output format, read-only permissions, and escalation conditions. The `chief-research-officer` is the sole coordinator and final decision owner. Specialists return evidence and analysis, never final decisions.
+Every role file defines its responsibility, required input, output format, read-only permissions, and escalation conditions. When used, the `chief-research-officer` role is a native Codex coordinator contract; it is not a Python orchestrator or a separate model service. The active Codex session owns the final decision. Specialists return evidence and analysis, never final decisions.
 
 ## Degraded execution fallback
 

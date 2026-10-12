@@ -1,10 +1,11 @@
-# Local daily run controller
+# Deterministic replay and local run controller
+
+> This utility is supporting infrastructure, not the product's AI orchestrator. Codex CLI itself plans and conducts newsletter research, synthesizes evidence, reviews, and writes the issue. This Python path consumes saved fixture/research artifacts and does not establish native Codex agent execution. The accepted product architecture and milestones are in [ARCHITECTURE.md](ARCHITECTURE.md) and [MVP_ROADMAP.md](MVP_ROADMAP.md).
 
 ## Build a replay edition in one command
 
-The deterministic orchestrator creates all required local artifacts from a
-declared replay fixture, then renders a draft edition without manual artifact
-assembly:
+The deterministic replay tool creates local artifacts from a declared replay
+fixture, then renders a draft edition without manual artifact assembly:
 
 ```powershell
 python tools/daily_orchestrator.py --date 2026-10-11 --replay tests/fixtures/market-observations.json --output .codex/results/daily-replay
@@ -29,7 +30,8 @@ python tools/daily_run.py .codex/results/daily-replay/manifest.json
 ```
 
 Neither command fetches live data, starts a Codex session, calls MCP, trades,
-schedules, or publishes.
+schedules, or publishes. Replay output is not current market intelligence;
+research desk records remain incomplete and explicitly simulated/degraded.
 
 Run the controller manually from the repository root after saving a newsletter
 assembly manifest and all referenced research artifacts inside this project:

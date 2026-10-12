@@ -1,0 +1,40 @@
+{
+  "status": "REPAIRED_AND_VALIDATED",
+  "prior_merged_packet_sha256": "8ad40b255a0b6a17c976b7d55a606e2bcca6508b26580fcf96d49bda37020b85",
+  "source_packet_sha256": "f03826e95bdde4feb7da136efaf19ec222fa87e9954e2bcbee8f80687bf7c788",
+  "repaired_packet_sha256": "ed2ebe5d71d7b56fb639d3384f48f9eec5c38a515713c436d64a7948f38b6e89",
+  "json_syntax": "PASS",
+  "newsletter_schema": "PASS",
+  "preserved_packet_fields": [
+    "edition",
+    "sources",
+    "pick",
+    "assembly"
+  ],
+  "preserved_research_artifacts": {
+    "accountability.json": "55cc9b8ceb00e97ee4020dbfc54d37ee1c6a200a8105705b7c8138965a9d7007",
+    "committee.json": "5a4689e193eb8ea23b8b39cf51d604eb467c1a37a91ba266f974b2898decd6ca",
+    "desks/asset-79e12418edb8e4f7-market-data.json": "77824274422fd547932b6309fb307d12776bf6341d455907b2c80e2dad65f5c7",
+    "desks/asset-79e12418edb8e4f7-discovery.json": "d90fff0fa6d7a67a9f4e3206e4ffdf79b4dd26d788984a89fc42dd9468bd0c29",
+    "desks/asset-79e12418edb8e4f7-technicals.json": "1c7b16a822129f3e5690d8ee5df9e6c79ce0f1856496bdef119760b6b464b2f0",
+    "desks/asset-79e12418edb8e4f7-liquidity.json": "2d3fce248197f5f6da844a0ee52393119bdaf5103a196d0b326c0b82e737dca9",
+    "desks/asset-79e12418edb8e4f7-on-chain.json": "4fb6bf657c5058e787424d5f26bcfeeb6fa9929682584bed54b02c9502b24580",
+    "desks/asset-79e12418edb8e4f7-tokenomics.json": "09dc032aac109856a31f4e94f74392b2f87ed1931cf9f3b2f9b175fe6ec6b393",
+    "desks/asset-79e12418edb8e4f7-catalysts.json": "1ccf8799b2eb46fa177b650b9cab483524a9a8473f9ab5563952c235c99977ef",
+    "desks/asset-79e12418edb8e4f7-risk.json": "8392e9b748fda6430929791c6f6918160f13c4cfe81d8f849dbe1b87604d75b1",
+    "desks/asset-79e12418edb8e4f7-falsification.json": "9aba66618999041a81af767e100e012f400d0a50fddb0476085d68177c0a1edf",
+    "market.json": "cfd886de22a49a961862e59b7aa6f503ab88406e358983334b83aa59318678b0",
+    "methodology.json": "b8f6c698ba87f08d4ad13cc3a3011ad41b441eeb37047357927e1524ae8fead4",
+    "screening.json": "aac6b448f33e4296dbe63fd0ce6b5326dc7c215905e7338b406137a07dc677ad",
+    "source-provenance.json": "41135c513523b4f0f167273a51f4a1a62926119dea6bdad0d5a858d927e21e87",
+    "source-snapshot.json": "b70647dc0a859d0982c7ce8e610c30afa3c7eafc760c89c71bbe9450f4313084",
+    "watchlist.json": "3570982f62013a3485fb14e68fb19fe299ab4d7db41f8ec2304390247b10d953"
+  },
+  "editorial_fields_replaced": [
+    "sections",
+    "editorial_claims",
+    "editorial_checklist",
+    "unresolved_issues"
+  ],
+  "evidence_content_discarded": false
+}
