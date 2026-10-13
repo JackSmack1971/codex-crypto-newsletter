@@ -1,0 +1,133 @@
+{
+  "run_id": "2026-10-13-c3d8b37398664268b05df5ad707af13c",
+  "run_date": "2026-10-13",
+  "cutoff_utc": "2026-10-13T12:59:11Z",
+  "status": "DEGRADED",
+  "manifest": "/home/user/codex-crypto-newsletter/.codex/results/daily-replay/manifest.json",
+  "stages": {
+    "INGESTING": {
+      "status": "COMPLETED",
+      "elapsed_seconds": 0.0,
+      "result": {
+        "artifacts": {
+          "accountability": "accountability.json",
+          "committee": "committee.json",
+          "desks": [
+            "desks/asset-79e12418edb8e4f7-market-data.json",
+            "desks/asset-79e12418edb8e4f7-discovery.json",
+            "desks/asset-79e12418edb8e4f7-technicals.json",
+            "desks/asset-79e12418edb8e4f7-liquidity.json",
+            "desks/asset-79e12418edb8e4f7-on-chain.json",
+            "desks/asset-79e12418edb8e4f7-tokenomics.json",
+            "desks/asset-79e12418edb8e4f7-catalysts.json",
+            "desks/asset-79e12418edb8e4f7-risk.json",
+            "desks/asset-79e12418edb8e4f7-falsification.json"
+          ],
+          "market": "market.json",
+          "methodology": "methodology.json",
+          "screening": "screening.json",
+          "source_provenance": "source-provenance.json",
+          "source_snapshot": "source-snapshot.json",
+          "watchlist": "watchlist.json"
+        },
+        "edition": {
+          "cutoff_utc": "2026-10-11T23:59:59Z",
+          "date": "2026-10-11",
+          "regime": "Declared local replay; incomplete research; no current market claims.",
+          "status": "draft"
+        },
+        "sources": [
+          {
+            "accessed_utc": "2026-10-11T12:00:01Z",
+            "artifact_keys": [
+              "market",
+              "screening"
+            ],
+            "evidence_quality": "SIMULATED_REPLAY",
+            "id": "local-replay",
+            "label": "Declared local replay fixture",
+            "live_source_verified": false,
+            "readiness": "READY",
+            "source_status": "SIMULATED_REPLAY",
+            "url": "https://example.invalid/local-replay"
+          }
+        ]
+      }
+    },
+    "SCREENING": {
+      "status": "COMPLETED",
+      "elapsed_seconds": 0.0,
+      "result": {
+        "artifact": "screening",
+        "available": true
+      }
+    },
+    "RESEARCHING": {
+      "status": "COMPLETED",
+      "elapsed_seconds": 0.0,
+      "result": {
+        "incomplete": [
+          "incomplete research: desk market-data status=incomplete",
+          "incomplete research: desk discovery status=incomplete",
+          "incomplete research: desk technicals status=incomplete",
+          "incomplete research: desk liquidity status=incomplete",
+          "incomplete research: desk on-chain status=incomplete",
+          "incomplete research: desk tokenomics status=incomplete",
+          "incomplete research: desk catalysts status=incomplete",
+          "incomplete research: desk risk status=incomplete",
+          "incomplete research: desk falsification status=incomplete"
+        ],
+        "records_created": 0
+      }
+    },
+    "REVIEWING": {
+      "status": "COMPLETED",
+      "elapsed_seconds": 0.0,
+      "result": {
+        "artifact": "committee",
+        "available": true
+      }
+    },
+    "COMPOSING": {
+      "status": "COMPLETED",
+      "elapsed_seconds": 0.004,
+      "result": {
+        "packet": "/home/user/codex-crypto-newsletter/.codex/daily-runs/2026-10-13-packet.json"
+      }
+    },
+    "VALIDATING": {
+      "status": "COMPLETED",
+      "elapsed_seconds": 0.001,
+      "result": {
+        "packet_valid": true,
+        "edition": "/home/user/codex-crypto-newsletter/.codex/daily-runs/2026-10-13-edition.md"
+      }
+    }
+  },
+  "diagnostics": [
+    "incomplete research: desk market-data status=incomplete",
+    "incomplete research: desk discovery status=incomplete",
+    "incomplete research: desk technicals status=incomplete",
+    "incomplete research: desk liquidity status=incomplete",
+    "incomplete research: desk on-chain status=incomplete",
+    "incomplete research: desk tokenomics status=incomplete",
+    "incomplete research: desk catalysts status=incomplete",
+    "incomplete research: desk risk status=incomplete",
+    "incomplete research: desk falsification status=incomplete"
+  ],
+  "created_utc": "2026-10-13T12:59:11Z",
+  "usage": {
+    "cost_usd": 0,
+    "model_usage": []
+  },
+  "providers": {
+    "providers": []
+  },
+  "schedule": {
+    "enabled": false,
+    "requested_enabled": false,
+    "daily_local_time": null,
+    "scheduler_registered": false
+  },
+  "completed_utc": "2026-10-13T12:59:11Z"
+}
